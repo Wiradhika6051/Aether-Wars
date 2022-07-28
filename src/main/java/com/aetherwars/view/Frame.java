@@ -10,6 +10,7 @@ import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.Character.Type;
+import com.aetherwars.util.GlobalVar;
 import com.aetherwars.util.Utility;
 
 import javax.swing.*;
@@ -26,8 +27,8 @@ import static com.aetherwars.util.Utility.getFractionSize;
 public class Frame extends javax.swing.JFrame {
     private BoardController board_controller;
     private Dimension screenSize;
-    private double screenWidth;
-    private double screenHeight;
+    private int screenWidth;
+    private int screenHeight;
     public static Frame Instance;
 
     /**
@@ -35,9 +36,8 @@ public class Frame extends javax.swing.JFrame {
      */
     private boolean isDebugMode;//jika true, maka fitur debug aktif
     public Frame(boolean isDebugMode) {
-        this.screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        screenWidth = screenSize.getWidth();
-        screenHeight = screenSize.getHeight();
+        screenWidth = GlobalVar.getScreenWidth();
+        screenHeight = GlobalVar.getScreenHeight();
         this.isDebugMode = isDebugMode;
         System.out.println(isDebugMode);
         this.setSize(new Dimension((int)(this.screenWidth),(int)(this.screenHeight)));
@@ -133,7 +133,7 @@ public class Frame extends javax.swing.JFrame {
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 0));
 
         System.out.println("aa:"+isDebugMode);
-        if(!isDebugMode) {
+        if(1==0) {
             javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
             jPanel7.setLayout(jPanel7Layout);
             jPanel7Layout.setHorizontalGroup(
@@ -474,8 +474,8 @@ public class Frame extends javax.swing.JFrame {
         healthbar1 = new HealthBar("Steve",100,Component.LEFT_ALIGNMENT);
         this.add(healthbar1);
         //grid debug
+        grid = new GridHelper();
         if(isDebugMode) {
-            grid = new GridHelper(this.screenWidth, this.screenHeight);
             this.add(grid);
         }
         for(Component c:this.getContentPane().getComponents()){

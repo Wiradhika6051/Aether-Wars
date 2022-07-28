@@ -59,7 +59,7 @@ public static List<Character> loadCards() throws IOException, URISyntaxException
 }
   public static void main(String[] args) {
     //launch();
-    Frame main_frame = new Frame(true);
+    Frame main_frame = new Frame(false);
     BoardChannel channel = new BoardChannel();
     BoardController board = new BoardController(channel);
    // try {

@@ -1,27 +1,38 @@
 package com.aetherwars.GUI.Components;
 
+import com.aetherwars.util.GlobalVar;
+import com.aetherwars.util.Utility;
+
 import java.awt.*;
 
-import javax.swing.JPanel;
-import javax.swing.Box;
-import javax.swing.JLabel;
-import javax.swing.JProgressBar;
-import javax.swing.BoxLayout;
+import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.Component;
 
 public class HealthBar extends JPanel{
     private int hp = 100;
     private String name;
     private float align = Component.LEFT_ALIGNMENT;
+    private int Width;
+    private int Height;
+    private int Xcoor;
+    private int Ycoor;
+    private Border border;
   //  private Bar prb_health_bar;
 
     public HealthBar(String name, int hp, float align){
         this.name = name;
         this.align = align;
         this.hp = hp;
-        this.setBackground(new Color(0,128,0));
-        this.setSize(new Dimension(100,100));
-        this.setBounds(20,20,100,100);
+        this.Width = (int)((15/60.0)*GlobalVar.getScreenWidth());
+        this.Height = (int)(1.5/40.0*GlobalVar.getScreenHeight());
+        this.Xcoor = (int)(1/60.0*GlobalVar.getScreenWidth());
+        this.Ycoor = (int)(2/40.0*GlobalVar.getScreenHeight());
+        this.setBackground(Color.LIGHT_GRAY);
+        this.setSize(new Dimension(Width,Height));
+        this.setBounds(Xcoor,Ycoor,Width,Height);
+        this.border = BorderFactory.createLineBorder(Color.BLACK);
+        this.setBorder(border);
         this.setLayout(null);
         this.setVisible(true);
     //    render();

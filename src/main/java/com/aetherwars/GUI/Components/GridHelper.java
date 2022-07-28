@@ -1,15 +1,17 @@
 package com.aetherwars.GUI.Components;
 
+import com.aetherwars.util.GlobalVar;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class GridHelper extends JPanel {
     //debug grid to see grid
-    double screenWidth;
-    double screenHeight;
-    public GridHelper(double screenWidth,double screenHeight) {
-        this.screenWidth= screenWidth;
-        this.screenHeight = screenHeight;
+    int screenWidth;
+    int screenHeight;
+    public GridHelper() {
+        this.screenWidth= GlobalVar.getScreenWidth();
+        this.screenHeight = GlobalVar.getScreenHeight();
    //     System.out.println(screenWidth+" "+screenHeight);
         this.setSize(new Dimension((int)this.screenWidth,(int)this.screenHeight));
         this.setBounds(0,0,(int)this.screenWidth,(int)this.screenHeight);
