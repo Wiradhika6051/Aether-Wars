@@ -10,6 +10,7 @@ import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.Character.Type;
+import com.aetherwars.util.Utility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +42,9 @@ public class Frame extends javax.swing.JFrame {
         System.out.println(isDebugMode);
         this.setSize(new Dimension((int)(this.screenWidth),(int)(this.screenHeight)));
         Frame.Instance = this;
-        initComponents();
+        this.setLayout(null);
+        init();
+        initKeyListener();
     }
     public static Frame getInstance(){
         if(Instance==null){
@@ -62,13 +65,13 @@ public class Frame extends javax.swing.JFrame {
      */
   //  @SuppressWarnings("unchecked")
    // // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void init() {
         java.awt.GridBagConstraints gridBagConstraints;
         // new CardLabel("piglin","babi");
         jPanel7 = new javax.swing.JPanel();
         pnl_north = new javax.swing.JPanel();
-        pnl_healthbar1 = new javax.swing.JPanel();
-        prb_healthbar1 = new javax.swing.JProgressBar();
+     //   pnl_healthbar1 = new javax.swing.JPanel();
+     //   prb_healthbar1 = new javax.swing.JProgressBar();
         //prb_healthbar1 = new HealthBar("a",10,Component.LEFT_ALIGNMENT);
         lbl_name1 = new javax.swing.JLabel();
         pnl_healtbar2 = new javax.swing.JPanel();
@@ -148,24 +151,14 @@ public class Frame extends javax.swing.JFrame {
             pnl_north.setName("pnl_north"); // NOI18N
             pnl_north.setLayout(new java.awt.BorderLayout());
 
-            pnl_healthbar1.setMinimumSize(new java.awt.Dimension(42, 15));
-            pnl_healthbar1.setPreferredSize(new java.awt.Dimension(375, 15));
-            pnl_healthbar1.setLayout(new java.awt.GridBagLayout());
-
-            //prb_healthbar1.setValue(50);
-            prb_healthbar1.setMaximumSize(new java.awt.Dimension(32767, 10));
-            prb_healthbar1.setMinimumSize(new java.awt.Dimension(10, 10));
-            prb_healthbar1.setPreferredSize(new java.awt.Dimension(350, 10));
-            pnl_healthbar1.add(prb_healthbar1, new java.awt.GridBagConstraints());
-
             lbl_name1.setText("Player 1");
             gridBagConstraints = new java.awt.GridBagConstraints();
             gridBagConstraints.gridx = 0;
             gridBagConstraints.gridy = 1;
             gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-            pnl_healthbar1.add(lbl_name1, gridBagConstraints);
+         //   pnl_healthbar1.add(lbl_name1, gridBagConstraints);
 
-            pnl_north.add(pnl_healthbar1, java.awt.BorderLayout.LINE_START);
+     //       pnl_north.add(pnl_healthbar1, java.awt.BorderLayout.LINE_START);
 
             pnl_healtbar2.setPreferredSize(new java.awt.Dimension(375, 26));
             pnl_healtbar2.setLayout(new java.awt.GridBagLayout());
@@ -217,32 +210,6 @@ public class Frame extends javax.swing.JFrame {
 
             pnl_board.setLayout(new java.awt.GridLayout(1, 0));
 
-/*
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-
-        jPanel20.setBackground(new java.awt.Color(200, 200, 200));
-        //jPanel20.setBackground(new java.awt.Color(200, 120, 200));
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-*/
             javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
             jPanel13.setLayout(jPanel13Layout);
             jPanel13Layout.setHorizontalGroup(
@@ -294,46 +261,6 @@ public class Frame extends javax.swing.JFrame {
             );
 
             pnl_board.add(jPanel13);
-/*
-        jPanel34.setBackground(new java.awt.Color(200, 200, 200));
-
-        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
-        jPanel34.setLayout(jPanel34Layout);
-        jPanel34Layout.setHorizontalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel34Layout.setVerticalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-
-        jPanel35.setBackground(new java.awt.Color(200, 200, 200));
-
-        javax.swing.GroupLayout jPanel35Layout = new javax.swing.GroupLayout(jPanel35);
-        jPanel35.setLayout(jPanel35Layout);
-        jPanel35Layout.setHorizontalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-        jPanel35Layout.setVerticalGroup(
-            jPanel35Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-
-        jPanel36.setBackground(new java.awt.Color(200, 200, 200));
-
-        javax.swing.GroupLayout jPanel36Layout = new javax.swing.GroupLayout(jPanel36);
-        jPanel36.setLayout(jPanel36Layout);
-        jPanel36Layout.setHorizontalGroup(
-            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel36Layout.setVerticalGroup(
-            jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-*/
             javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
             jPanel14.setLayout(jPanel14Layout);
             jPanel14Layout.setHorizontalGroup(
@@ -473,86 +400,6 @@ public class Frame extends javax.swing.JFrame {
             getContentPane().add(pnl_center, java.awt.BorderLayout.CENTER);
 
             pnl_south.setLayout(new java.awt.BorderLayout());
-/*
-        pnl_hand_1.setBackground(new java.awt.Color(200, 200, 200));
-        //pnl_hand_1.setBackground(new java.awt.Color(255, 53, 184));
-
-        //javax.swing.GroupLayout cardLayout = new javax.swing.GroupLayout(card);
-        //card.setLayout(cardLayout);
-        /*
-        card.cardLayout.setHorizontalGroup(
-                card.cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 76, Short.MAX_VALUE)
-        );
-        card.cardLayout.setVerticalGroup(
-                card.cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 126, Short.MAX_VALUE)
-        );
-
-
-        javax.swing.GroupLayout pnl_hand_1Layout = new javax.swing.GroupLayout(pnl_hand_1);
-        pnl_hand_1.setLayout(pnl_hand_1Layout);
-        pnl_hand_1Layout.setHorizontalGroup(
-            pnl_hand_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
-        );
-        pnl_hand_1Layout.setVerticalGroup(
-            pnl_hand_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 126, Short.MAX_VALUE)
-        );*/
-/*
-        pnl_hand_2.setBackground(new java.awt.Color(200, 200, 200));
-
-        javax.swing.GroupLayout pnl_hand_2Layout = new javax.swing.GroupLayout(pnl_hand_2);
-        pnl_hand_2.setLayout(pnl_hand_2Layout);
-        pnl_hand_2Layout.setHorizontalGroup(
-            pnl_hand_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
-        );
-        pnl_hand_2Layout.setVerticalGroup(
-            pnl_hand_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 126, Short.MAX_VALUE)
-        );*/
-/*
-        jPanel4.setBackground(new java.awt.Color(200, 200, 200));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 126, Short.MAX_VALUE)
-        );*/
-/*
-        jPanel5.setBackground(new java.awt.Color(200, 200, 200));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 126, Short.MAX_VALUE)
-        );*/
-/*
-        jPanel6.setBackground(new java.awt.Color(200, 200, 200));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 126, Short.MAX_VALUE)
-        );
-*/
             javax.swing.GroupLayout pnl_south_westLayout = new javax.swing.GroupLayout(pnl_south_west);
             //       pnl_south_west.setBackground(new java.awt.Color(255, 53, 184));
             pnl_south_west.setLayout(pnl_south_westLayout);
@@ -621,33 +468,39 @@ public class Frame extends javax.swing.JFrame {
 
             getContentPane().add(pnl_south, java.awt.BorderLayout.SOUTH);
         }
-//grid debug
-        if(isDebugMode){
-            grid = new GridHelper(this.screenWidth,this.screenHeight);
+        //new layout
+        //note: rendernya kek pake stack, jadi urutannya kebalik, yg terakhir ditambahin yang
+        //pertama di render
+        healthbar1 = new HealthBar("Steve",100,Component.LEFT_ALIGNMENT);
+        this.add(healthbar1);
+        //grid debug
+        if(isDebugMode) {
+            grid = new GridHelper(this.screenWidth, this.screenHeight);
             this.add(grid);
         }
+        for(Component c:this.getContentPane().getComponents()){
+            System.out.println(c);
+        }
+    }
+
+    private void initKeyListener(){
         this.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e) {//kirim ke user input
-              //  System.out.println("printed key:"+e.getKeyCode());
+                //  System.out.println("printed key:"+e.getKeyCode());
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 System.out.println("pressed key:"+e.getKeyCode());
                 switch(e.getKeyCode()){
-                    case 112://F1
+                    case 112://F1 ->aktifkan/nonaktifkan debug mode
                         Frame instance = Frame.getInstance();
                         boolean debugMode = instance.getDebugMode();
                         instance.setDebugMode(!debugMode);
                         System.out.println("yesy");
-                        if(instance.getDebugMode()){
-                            grid = new GridHelper(instance.screenWidth,instance.screenHeight);
-                            instance.add(grid);
-                        }
-                        else {
-                            instance.getContentPane().removeAll();
-                        }
+                        instance.getContentPane().removeAll();
+                        instance.renderComponents(instance.getDebugMode());
                         instance.revalidate();
                         instance.repaint();
                 }
@@ -658,7 +511,14 @@ public class Frame extends javax.swing.JFrame {
 
             }
         });
-    }// </editor-fold>//GEN-END:initComponents
+    }
+    public void renderComponents(boolean debugMode){
+        this.add(healthbar1);
+        if(debugMode){
+            this.add(grid);
+        }
+    }
+    // </editor-fold>//GEN-END:initComponents
     public void run(BoardController board_controller) {
         this.board_controller = board_controller;
         this.setVisible(true);
@@ -746,7 +606,7 @@ public class Frame extends javax.swing.JFrame {
     private HandCardLabel handCard1;
     private HandCardLabel handCard2;
     private javax.swing.JPanel pnl_healtbar2;
-    private javax.swing.JPanel pnl_healthbar1;
+    //private javax.swing.JPanel pnl_healthbar1;
     private javax.swing.JPanel pnl_next_phase;
     private javax.swing.JPanel pnl_north;
     private javax.swing.JPanel pnl_phase;
@@ -756,8 +616,8 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_south_east;
     private javax.swing.JPanel pnl_south_west;
     private javax.swing.JPanel pnl_turns;
-    //private HealthBar prb_healthbar1;
-    private javax.swing.JProgressBar prb_healthbar1;
+    private HealthBar healthbar1;
+    //private javax.swing.JProgressBar prb_healthbar1;
     private javax.swing.JProgressBar prb_healthbar2;
     private java.awt.Button nextPhaseLabel;
     private GridHelper grid;

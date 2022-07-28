@@ -1,6 +1,6 @@
 package com.aetherwars.GUI.Components;
 
-import java.awt.Component;
+import java.awt.*;
 
 import javax.swing.JPanel;
 import javax.swing.Box;
@@ -8,23 +8,25 @@ import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.BoxLayout;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 public class HealthBar extends JPanel{
     private int hp = 100;
     private String name;
     private float align = Component.LEFT_ALIGNMENT;
-    private Bar prb_health_bar;
+  //  private Bar prb_health_bar;
 
     public HealthBar(String name, int hp, float align){
         this.name = name;
         this.align = align;
         this.hp = hp;
-        render();
+        this.setBackground(new Color(0,128,0));
+        this.setSize(new Dimension(100,100));
+        this.setBounds(20,20,100,100);
+        this.setLayout(null);
+        this.setVisible(true);
+    //    render();
     }
-    
+    /*
     public void render(){
         this.setLayout(new BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
     
@@ -44,8 +46,9 @@ public class HealthBar extends JPanel{
         this.add(lbl_name);
 
     }
+    */
 }
-
+/*
 class Bar extends JProgressBar{
     private boolean isBackward = false;
 
@@ -70,3 +73,4 @@ class Bar extends JProgressBar{
         }
     }
 }
+*/
