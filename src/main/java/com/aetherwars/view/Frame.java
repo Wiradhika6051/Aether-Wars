@@ -10,7 +10,13 @@ import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.Character.Type;
+
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import static com.aetherwars.util.Utility.getFractionSize;
 
 /**
  *
@@ -18,13 +24,37 @@ import java.awt.*;
  */
 public class Frame extends javax.swing.JFrame {
     private BoardController board_controller;
+    private Dimension screenSize;
+    private double screenWidth;
+    private double screenHeight;
+    public static Frame Instance;
+
     /**
      * Creates new form Frame
      */
-    public Frame() {
+    private boolean isDebugMode;//jika true, maka fitur debug aktif
+    public Frame(boolean isDebugMode) {
+        this.screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenWidth = screenSize.getWidth();
+        screenHeight = screenSize.getHeight();
+        this.isDebugMode = isDebugMode;
+        System.out.println(isDebugMode);
+        this.setSize(new Dimension((int)(this.screenWidth),(int)(this.screenHeight)));
+        Frame.Instance = this;
         initComponents();
     }
-
+    public static Frame getInstance(){
+        if(Instance==null){
+            Instance = new Frame(true);
+        }
+        return Instance;
+    }
+    public void setDebugMode(boolean debugMode){
+        this.isDebugMode= debugMode;
+    }
+    public boolean getDebugMode(){
+        return isDebugMode;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +69,7 @@ public class Frame extends javax.swing.JFrame {
         pnl_north = new javax.swing.JPanel();
         pnl_healthbar1 = new javax.swing.JPanel();
         prb_healthbar1 = new javax.swing.JProgressBar();
+        //prb_healthbar1 = new HealthBar("a",10,Component.LEFT_ALIGNMENT);
         lbl_name1 = new javax.swing.JLabel();
         pnl_healtbar2 = new javax.swing.JPanel();
         prb_healthbar2 = new javax.swing.JProgressBar();
@@ -98,91 +129,93 @@ public class Frame extends javax.swing.JFrame {
         showManaLabel = new ShowManaLabel(0,1);
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 0));
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        System.out.println("aa:"+isDebugMode);
+        if(!isDebugMode) {
+            javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+            jPanel7.setLayout(jPanel7Layout);
+            jPanel7Layout.setHorizontalGroup(
+                    jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(0, 100, Short.MAX_VALUE)
+            );
+            jPanel7Layout.setVerticalGroup(
+                    jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(0, 100, Short.MAX_VALUE)
+            );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
+            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+            setResizable(false);
 
-        pnl_north.setName("pnl_north"); // NOI18N
-        pnl_north.setLayout(new java.awt.BorderLayout());
+            pnl_north.setName("pnl_north"); // NOI18N
+            pnl_north.setLayout(new java.awt.BorderLayout());
 
-        pnl_healthbar1.setMinimumSize(new java.awt.Dimension(42, 15));
-        pnl_healthbar1.setPreferredSize(new java.awt.Dimension(375, 15));
-        pnl_healthbar1.setLayout(new java.awt.GridBagLayout());
+            pnl_healthbar1.setMinimumSize(new java.awt.Dimension(42, 15));
+            pnl_healthbar1.setPreferredSize(new java.awt.Dimension(375, 15));
+            pnl_healthbar1.setLayout(new java.awt.GridBagLayout());
 
-        prb_healthbar1.setValue(50);
-        prb_healthbar1.setMaximumSize(new java.awt.Dimension(32767, 10));
-        prb_healthbar1.setMinimumSize(new java.awt.Dimension(10, 10));
-        prb_healthbar1.setPreferredSize(new java.awt.Dimension(350, 10));
-        pnl_healthbar1.add(prb_healthbar1, new java.awt.GridBagConstraints());
+            //prb_healthbar1.setValue(50);
+            prb_healthbar1.setMaximumSize(new java.awt.Dimension(32767, 10));
+            prb_healthbar1.setMinimumSize(new java.awt.Dimension(10, 10));
+            prb_healthbar1.setPreferredSize(new java.awt.Dimension(350, 10));
+            pnl_healthbar1.add(prb_healthbar1, new java.awt.GridBagConstraints());
 
-        lbl_name1.setText("Player 1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        pnl_healthbar1.add(lbl_name1, gridBagConstraints);
+            lbl_name1.setText("Player 1");
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+            pnl_healthbar1.add(lbl_name1, gridBagConstraints);
 
-        pnl_north.add(pnl_healthbar1, java.awt.BorderLayout.LINE_START);
+            pnl_north.add(pnl_healthbar1, java.awt.BorderLayout.LINE_START);
 
-        pnl_healtbar2.setPreferredSize(new java.awt.Dimension(375, 26));
-        pnl_healtbar2.setLayout(new java.awt.GridBagLayout());
+            pnl_healtbar2.setPreferredSize(new java.awt.Dimension(375, 26));
+            pnl_healtbar2.setLayout(new java.awt.GridBagLayout());
 
-        prb_healthbar2.setValue(50);
-        prb_healthbar2.setMaximumSize(new java.awt.Dimension(32767, 10));
-        prb_healthbar2.setMinimumSize(new java.awt.Dimension(10, 10));
-        prb_healthbar2.setPreferredSize(new java.awt.Dimension(350, 10));
-        pnl_healtbar2.add(prb_healthbar2, new java.awt.GridBagConstraints());
+            prb_healthbar2.setValue(50);
+            prb_healthbar2.setMaximumSize(new java.awt.Dimension(32767, 10));
+            prb_healthbar2.setMinimumSize(new java.awt.Dimension(10, 10));
+            prb_healthbar2.setPreferredSize(new java.awt.Dimension(350, 10));
+            pnl_healtbar2.add(prb_healthbar2, new java.awt.GridBagConstraints());
 
-        lbl_name2.setText("Player 2");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
-        pnl_healtbar2.add(lbl_name2, gridBagConstraints);
+            lbl_name2.setText("Player 2");
+            gridBagConstraints = new java.awt.GridBagConstraints();
+            gridBagConstraints.gridx = 0;
+            gridBagConstraints.gridy = 1;
+            gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
+            pnl_healtbar2.add(lbl_name2, gridBagConstraints);
 
-        pnl_north.add(pnl_healtbar2, java.awt.BorderLayout.LINE_END);
+            pnl_north.add(pnl_healtbar2, java.awt.BorderLayout.LINE_END);
 
-        pnl_turns.setLayout(new java.awt.BorderLayout());
+            pnl_turns.setLayout(new java.awt.BorderLayout());
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
-        //jPanel1.setBackground(new java.awt.Color(200, 120, 153));
-        jPanel1.setForeground(new java.awt.Color(153, 153, 153));
-        jPanel1.setPreferredSize(new java.awt.Dimension(40, 40));
+            jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+            //jPanel1.setBackground(new java.awt.Color(200, 120, 153));
+            jPanel1.setForeground(new java.awt.Color(153, 153, 153));
+            jPanel1.setPreferredSize(new java.awt.Dimension(40, 40));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 57, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
+            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+            jPanel1.setLayout(jPanel1Layout);
+            jPanel1Layout.setHorizontalGroup(
+                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(0, 57, Short.MAX_VALUE)
+            );
+            jPanel1Layout.setVerticalGroup(
+                    jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(0, 40, Short.MAX_VALUE)
+            );
 
-        pnl_turns.add(jPanel1, java.awt.BorderLayout.CENTER);
-        pnl_turns.add(filler2, java.awt.BorderLayout.PAGE_START);
-        pnl_turns.add(filler3, java.awt.BorderLayout.WEST);
-        pnl_turns.add(filler4, java.awt.BorderLayout.EAST);
-        pnl_turns.add(filler6, java.awt.BorderLayout.PAGE_END);
+            pnl_turns.add(jPanel1, java.awt.BorderLayout.CENTER);
+            pnl_turns.add(filler2, java.awt.BorderLayout.PAGE_START);
+            pnl_turns.add(filler3, java.awt.BorderLayout.WEST);
+            pnl_turns.add(filler4, java.awt.BorderLayout.EAST);
+            pnl_turns.add(filler6, java.awt.BorderLayout.PAGE_END);
 
-        pnl_north.add(pnl_turns, java.awt.BorderLayout.CENTER);
+            pnl_north.add(pnl_turns, java.awt.BorderLayout.CENTER);
 
-        getContentPane().add(pnl_north, java.awt.BorderLayout.NORTH);
+            getContentPane().add(pnl_north, java.awt.BorderLayout.NORTH);
 
-        pnl_center.setLayout(new javax.swing.BoxLayout(pnl_center, javax.swing.BoxLayout.PAGE_AXIS));
+            pnl_center.setLayout(new javax.swing.BoxLayout(pnl_center, javax.swing.BoxLayout.PAGE_AXIS));
 
-        pnl_board.setLayout(new java.awt.GridLayout(1, 0));
+            pnl_board.setLayout(new java.awt.GridLayout(1, 0));
 
 /*
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
@@ -210,57 +243,57 @@ public class Frame extends javax.swing.JFrame {
             .addGap(0, 75, Short.MAX_VALUE)
         );
 */
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(filler7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(player1Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(deck_C_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(deck_D_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(deck_A_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(deck_B_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(deck_E_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap(35, Short.MAX_VALUE)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addComponent(filler7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(player1Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(68, 68, 68))
-                        .addGroup(jPanel13Layout.createSequentialGroup()
-                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(deck_B_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(deck_A_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(deck_C_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(deck_D_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(20, 20, 20)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                        .addComponent(deck_E_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71))))
-        );
+            javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+            jPanel13.setLayout(jPanel13Layout);
+            jPanel13Layout.setHorizontalGroup(
+                    jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(filler7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(player1Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                                    .addComponent(deck_C_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(deck_D_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                                    .addComponent(deck_A_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(deck_B_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(deck_E_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap(32, Short.MAX_VALUE))
+            );
+            jPanel13Layout.setVerticalGroup(
+                    jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                    .addContainerGap(35, Short.MAX_VALUE)
+                                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                                                    .addComponent(filler7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(87, 87, 87))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addComponent(player1Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addGap(68, 68, 68))
+                                                    .addGroup(jPanel13Layout.createSequentialGroup()
+                                                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                                    .addComponent(deck_B_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                    .addComponent(deck_A_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                            .addGap(18, 18, 18)
+                                                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                    .addComponent(deck_C_player1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                    .addComponent(deck_D_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                            .addGap(20, 20, 20)))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                                                    .addComponent(deck_E_player1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(71, 71, 71))))
+            );
 
-        pnl_board.add(jPanel13);
+            pnl_board.add(jPanel13);
 /*
         jPanel34.setBackground(new java.awt.Color(200, 200, 200));
 
@@ -301,145 +334,145 @@ public class Frame extends javax.swing.JFrame {
             .addGap(0, 75, Short.MAX_VALUE)
         );
 */
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(deck_E_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(deck_B_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deck_D_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(deck_A_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deck_C_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(player2Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(filler8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(filler8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(deck_B_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deck_A_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(deck_C_player2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(deck_D_player2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(deck_E_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addGap(15, 15, 20)
-                        .addComponent(player2Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(24, 24, 24))
-        );
+            javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+            jPanel14.setLayout(jPanel14Layout);
+            jPanel14Layout.setHorizontalGroup(
+                    jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                                    .addContainerGap(31, Short.MAX_VALUE)
+                                    .addComponent(deck_E_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(deck_B_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(deck_D_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(deck_A_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(deck_C_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(player2Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(filler8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap())
+            );
+            jPanel14Layout.setVerticalGroup(
+                    jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                    .addGap(93, 93, 93)
+                                    .addComponent(filler8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+                                    .addContainerGap(31, Short.MAX_VALUE)
+                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(deck_B_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addComponent(deck_A_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGap(18, 18, 18)
+                                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(deck_C_player2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addComponent(deck_D_player2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                                    .addGap(47, 47, 47)
+                                                    .addComponent(deck_E_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                                    .addGap(15, 15, 20)
+                                                    .addComponent(player2Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(24, 24, 24))
+            );
 
-        pnl_board.add(jPanel14);
+            pnl_board.add(jPanel14);
 
-        pnl_center.add(pnl_board);
+            pnl_center.add(pnl_board);
 
-        pnl_draw_phase.setBackground(new java.awt.Color(225, 225, 225));
-        pnl_draw_phase.setPreferredSize(new java.awt.Dimension(275, 24));
-        pnl_draw_phase.setLayout(new java.awt.BorderLayout());
+            pnl_draw_phase.setBackground(new java.awt.Color(225, 225, 225));
+            pnl_draw_phase.setPreferredSize(new java.awt.Dimension(275, 24));
+            pnl_draw_phase.setLayout(new java.awt.BorderLayout());
 
-        label1.setAlignment(java.awt.Label.CENTER);
-        label1.setText("DRAW");
-        pnl_draw_phase.add(label1, java.awt.BorderLayout.CENTER);
+            label1.setAlignment(java.awt.Label.CENTER);
+            label1.setText("DRAW");
+            pnl_draw_phase.add(label1, java.awt.BorderLayout.CENTER);
 
-        pnl_plan_phase.setBackground(new java.awt.Color(225, 225, 225));
-        pnl_plan_phase.setPreferredSize(new java.awt.Dimension(275, 24));
-        pnl_plan_phase.setLayout(new java.awt.BorderLayout());
+            pnl_plan_phase.setBackground(new java.awt.Color(225, 225, 225));
+            pnl_plan_phase.setPreferredSize(new java.awt.Dimension(275, 24));
+            pnl_plan_phase.setLayout(new java.awt.BorderLayout());
 
-        label2.setAlignment(java.awt.Label.CENTER);
-        label2.setText("PLAN");
-        pnl_plan_phase.add(label2, java.awt.BorderLayout.CENTER);
+            label2.setAlignment(java.awt.Label.CENTER);
+            label2.setText("PLAN");
+            pnl_plan_phase.add(label2, java.awt.BorderLayout.CENTER);
 
-        pnl_attack_phase.setBackground(new java.awt.Color(225, 225, 225));
-        pnl_attack_phase.setPreferredSize(new java.awt.Dimension(275, 24));
-        pnl_attack_phase.setLayout(new java.awt.BorderLayout());
+            pnl_attack_phase.setBackground(new java.awt.Color(225, 225, 225));
+            pnl_attack_phase.setPreferredSize(new java.awt.Dimension(275, 24));
+            pnl_attack_phase.setLayout(new java.awt.BorderLayout());
 
-        label3.setAlignment(java.awt.Label.CENTER);
-        label3.setText("ATTACK");
-        pnl_attack_phase.add(label3, java.awt.BorderLayout.CENTER);
+            label3.setAlignment(java.awt.Label.CENTER);
+            label3.setText("ATTACK");
+            pnl_attack_phase.add(label3, java.awt.BorderLayout.CENTER);
 
-        pnl_end_phase.setBackground(new java.awt.Color(225, 225, 225));
-        pnl_end_phase.setPreferredSize(new java.awt.Dimension(275, 24));
-        pnl_end_phase.setLayout(new java.awt.BorderLayout());
+            pnl_end_phase.setBackground(new java.awt.Color(225, 225, 225));
+            pnl_end_phase.setPreferredSize(new java.awt.Dimension(275, 24));
+            pnl_end_phase.setLayout(new java.awt.BorderLayout());
 
-        label4.setAlignment(java.awt.Label.CENTER);
-        label4.setText("END");
-        pnl_end_phase.add(label4, java.awt.BorderLayout.CENTER);
-        nextPhaseLabel.setLabel(">>");
-        //nextPhaseLabel.setAlignment(java.awt.Label.CENTER);
-        nextPhaseLabel.setBackground(new java.awt.Color(0, 0, 0));
-        nextPhaseLabel.setForeground(new java.awt.Color(225, 225, 225));
-        pnl_next_phase.setBackground(new java.awt.Color(225, 225, 225));
-        pnl_next_phase.setPreferredSize(new java.awt.Dimension(200, 24));
+            label4.setAlignment(java.awt.Label.CENTER);
+            label4.setText("END");
+            pnl_end_phase.add(label4, java.awt.BorderLayout.CENTER);
+            nextPhaseLabel.setLabel(">>");
+            //nextPhaseLabel.setAlignment(java.awt.Label.CENTER);
+            nextPhaseLabel.setBackground(new java.awt.Color(0, 0, 0));
+            nextPhaseLabel.setForeground(new java.awt.Color(225, 225, 225));
+            pnl_next_phase.setBackground(new java.awt.Color(225, 225, 225));
+            pnl_next_phase.setPreferredSize(new java.awt.Dimension(200, 24));
 
-        javax.swing.GroupLayout pnl_next_phaseLayout = new javax.swing.GroupLayout(pnl_next_phase);
-        pnl_next_phase.setLayout(pnl_next_phaseLayout);
-        pnl_next_phaseLayout.setHorizontalGroup(
-            pnl_next_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nextPhaseLabel)
-            .addGap(0, 90, Short.MAX_VALUE)
-        );
-        pnl_next_phaseLayout.setVerticalGroup(
-            pnl_next_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nextPhaseLabel)
-            .addGap(0, 24, Short.MAX_VALUE)
-        );
+            javax.swing.GroupLayout pnl_next_phaseLayout = new javax.swing.GroupLayout(pnl_next_phase);
+            pnl_next_phase.setLayout(pnl_next_phaseLayout);
+            pnl_next_phaseLayout.setHorizontalGroup(
+                    pnl_next_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nextPhaseLabel)
+                            .addGap(0, 90, Short.MAX_VALUE)
+            );
+            pnl_next_phaseLayout.setVerticalGroup(
+                    pnl_next_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nextPhaseLabel)
+                            .addGap(0, 24, Short.MAX_VALUE)
+            );
 
-        javax.swing.GroupLayout pnl_phaseLayout = new javax.swing.GroupLayout(pnl_phase);
-        pnl_phase.setLayout(pnl_phaseLayout);
-        pnl_phaseLayout.setHorizontalGroup(
-            pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_phaseLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addComponent(pnl_draw_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_plan_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_attack_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_end_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnl_next_phase, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17))
-        );
-        pnl_phaseLayout.setVerticalGroup(
-            pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_phaseLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnl_next_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(pnl_end_phase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pnl_draw_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pnl_plan_phase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnl_attack_phase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(14, 14, 14))
-        );
+            javax.swing.GroupLayout pnl_phaseLayout = new javax.swing.GroupLayout(pnl_phase);
+            pnl_phase.setLayout(pnl_phaseLayout);
+            pnl_phaseLayout.setHorizontalGroup(
+                    pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_phaseLayout.createSequentialGroup()
+                                    .addContainerGap(31, Short.MAX_VALUE)
+                                    .addComponent(pnl_draw_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(pnl_plan_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(pnl_attack_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(pnl_end_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(pnl_next_phase, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(17, 17, 17))
+            );
+            pnl_phaseLayout.setVerticalGroup(
+                    pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_phaseLayout.createSequentialGroup()
+                                    .addContainerGap(36, Short.MAX_VALUE)
+                                    .addGroup(pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(pnl_next_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(pnl_end_phase, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(pnl_draw_phase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(pnl_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(pnl_plan_phase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addComponent(pnl_attack_phase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGap(14, 14, 14))
+            );
 
-        pnl_center.add(pnl_phase);
+            pnl_center.add(pnl_phase);
 
-        getContentPane().add(pnl_center, java.awt.BorderLayout.CENTER);
+            getContentPane().add(pnl_center, java.awt.BorderLayout.CENTER);
 
-        pnl_south.setLayout(new java.awt.BorderLayout());
+            pnl_south.setLayout(new java.awt.BorderLayout());
 /*
         pnl_hand_1.setBackground(new java.awt.Color(200, 200, 200));
         //pnl_hand_1.setBackground(new java.awt.Color(255, 53, 184));
@@ -520,79 +553,115 @@ public class Frame extends javax.swing.JFrame {
             .addGap(0, 126, Short.MAX_VALUE)
         );
 */
-        javax.swing.GroupLayout pnl_south_westLayout = new javax.swing.GroupLayout(pnl_south_west);
- //       pnl_south_west.setBackground(new java.awt.Color(255, 53, 184));
-        pnl_south_west.setLayout(pnl_south_westLayout);
-        pnl_south_westLayout.setHorizontalGroup(
-            pnl_south_westLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_south_westLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(handCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(handCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(handCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(handCard4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(handCard5,javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            javax.swing.GroupLayout pnl_south_westLayout = new javax.swing.GroupLayout(pnl_south_west);
+            //       pnl_south_west.setBackground(new java.awt.Color(255, 53, 184));
+            pnl_south_west.setLayout(pnl_south_westLayout);
+            pnl_south_westLayout.setHorizontalGroup(
+                    pnl_south_westLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnl_south_westLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(handCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(handCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(handCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(handCard4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(handCard5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 
-        );
-        pnl_south_westLayout.setVerticalGroup(
-            pnl_south_westLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_south_westLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnl_south_westLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(handCard5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(handCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(handCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(handCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(handCard4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(10, Short.MAX_VALUE))
-        );
+            );
+            pnl_south_westLayout.setVerticalGroup(
+                    pnl_south_westLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnl_south_westLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addGroup(pnl_south_westLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(handCard5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(handCard2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(handCard1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(handCard3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(handCard4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addContainerGap(10, Short.MAX_VALUE))
+            );
 
-        pnl_south.add(pnl_south_west, java.awt.BorderLayout.WEST);
-        javax.swing.GroupLayout pnl_south_centerLayout = new javax.swing.GroupLayout(pnl_south_center);
-        pnl_south_center.setLayout(pnl_south_centerLayout);
-        pnl_south_centerLayout.setHorizontalGroup(
-            pnl_south_centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_south_centerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnl_card_preview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-        pnl_south_centerLayout.setVerticalGroup(
-            pnl_south_centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnl_south_centerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnl_card_preview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+            pnl_south.add(pnl_south_west, java.awt.BorderLayout.WEST);
+            javax.swing.GroupLayout pnl_south_centerLayout = new javax.swing.GroupLayout(pnl_south_center);
+            pnl_south_center.setLayout(pnl_south_centerLayout);
+            pnl_south_centerLayout.setHorizontalGroup(
+                    pnl_south_centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnl_south_centerLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(pnl_card_preview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap(38, Short.MAX_VALUE))
+            );
+            pnl_south_centerLayout.setVerticalGroup(
+                    pnl_south_centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnl_south_centerLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(pnl_card_preview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addContainerGap())
+            );
 
-        pnl_south.add(pnl_south_center, java.awt.BorderLayout.CENTER);
+            pnl_south.add(pnl_south_center, java.awt.BorderLayout.CENTER);
 
-        pnl_south_east.add(pnl_card_description);
+            pnl_south_east.add(pnl_card_description);
 
-        jPanel2.setPreferredSize(new java.awt.Dimension(100, 120));
-        jPanel2.setLayout(new java.awt.BorderLayout());
-        jPanel2.add(cardDeckPanel, java.awt.BorderLayout.NORTH);
-        jPanel2.add(filler5, java.awt.BorderLayout.CENTER);
-        jPanel2.add(showManaLabel, java.awt.BorderLayout.SOUTH);
+            jPanel2.setPreferredSize(new java.awt.Dimension(100, 120));
+            jPanel2.setLayout(new java.awt.BorderLayout());
+            jPanel2.add(cardDeckPanel, java.awt.BorderLayout.NORTH);
+            jPanel2.add(filler5, java.awt.BorderLayout.CENTER);
+            jPanel2.add(showManaLabel, java.awt.BorderLayout.SOUTH);
 
-        pnl_south_east.add(jPanel2);
+            pnl_south_east.add(jPanel2);
 
-        pnl_south.add(pnl_south_east, java.awt.BorderLayout.EAST);
-        pnl_south.add(filler1, java.awt.BorderLayout.SOUTH);
-        //pnl_south.add(card,java.awt.BorderLayout.SOUTH);
+            pnl_south.add(pnl_south_east, java.awt.BorderLayout.EAST);
+            pnl_south.add(filler1, java.awt.BorderLayout.SOUTH);
+            //pnl_south.add(card,java.awt.BorderLayout.SOUTH);
 
-        getContentPane().add(pnl_south, java.awt.BorderLayout.SOUTH);
+            getContentPane().add(pnl_south, java.awt.BorderLayout.SOUTH);
+        }
+//grid debug
+        if(isDebugMode){
+            grid = new GridHelper(this.screenWidth,this.screenHeight);
+            this.add(grid);
+        }
+        this.addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {//kirim ke user input
+              //  System.out.println("printed key:"+e.getKeyCode());
+            }
 
-        pack();
+            @Override
+            public void keyPressed(KeyEvent e) {
+                System.out.println("pressed key:"+e.getKeyCode());
+                switch(e.getKeyCode()){
+                    case 112://F1
+                        Frame instance = Frame.getInstance();
+                        boolean debugMode = instance.getDebugMode();
+                        instance.setDebugMode(!debugMode);
+                        System.out.println("yesy");
+                        if(instance.getDebugMode()){
+                            grid = new GridHelper(instance.screenWidth,instance.screenHeight);
+                            instance.add(grid);
+                        }
+                        else {
+                            instance.getContentPane().removeAll();
+                        }
+                        instance.revalidate();
+                        instance.repaint();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
     }// </editor-fold>//GEN-END:initComponents
     public void run(BoardController board_controller) {
         this.board_controller = board_controller;
-        new Frame().setVisible(true);
+        this.setVisible(true);
 
     }
     /**
@@ -625,7 +694,7 @@ public class Frame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Frame().setVisible(true);
+                Frame.getInstance().setVisible(true);
             }
         });
     }
@@ -687,9 +756,11 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_south_east;
     private javax.swing.JPanel pnl_south_west;
     private javax.swing.JPanel pnl_turns;
+    //private HealthBar prb_healthbar1;
     private javax.swing.JProgressBar prb_healthbar1;
     private javax.swing.JProgressBar prb_healthbar2;
     private java.awt.Button nextPhaseLabel;
+    private GridHelper grid;
    // private CardLabel card;
     // End of variables declaration//GEN-END:variables
 }

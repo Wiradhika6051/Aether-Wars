@@ -59,14 +59,14 @@ public static List<Character> loadCards() throws IOException, URISyntaxException
 }
   public static void main(String[] args) {
     //launch();
-    Frame main_frame = new Frame();
+    Frame main_frame = new Frame(true);
     BoardChannel channel = new BoardChannel();
     BoardController board = new BoardController(channel);
-    try {
-     List<Character> listChar =   AetherWars.loadCards();
-    } catch (Exception e) {
-      System.out.println("Failed to load cards: " + e);
-    }
+   // try {
+   //  List<Character> listChar =   AetherWars.loadCards();
+   // } catch (Exception e) {
+   //   System.out.println("Failed to load cards: " + e);
+   // }
     main_frame.run(board);
   }
 }
