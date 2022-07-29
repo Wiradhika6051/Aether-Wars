@@ -73,7 +73,7 @@ public class Frame extends javax.swing.JFrame {
         pnl_healtbar2 = new javax.swing.JPanel();
         //prb_healthbar2 = new javax.swing.JProgressBar();
         lbl_name2 = new javax.swing.JLabel();
-        pnl_turns = new javax.swing.JPanel();
+        pnl_turns = new TurnInfo(1);
         jPanel1 = new javax.swing.JPanel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 10));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(27, 0), new java.awt.Dimension(10, 0));
@@ -158,12 +158,6 @@ public class Frame extends javax.swing.JFrame {
             pnl_healtbar2.setPreferredSize(new java.awt.Dimension(375, 26));
             pnl_healtbar2.setLayout(new java.awt.GridBagLayout());
 
-            //prb_healthbar2.setValue(50);
-            //prb_healthbar2.setMaximumSize(new java.awt.Dimension(32767, 10));
-            //prb_healthbar2.setMinimumSize(new java.awt.Dimension(10, 10));
-            //prb_healthbar2.setPreferredSize(new java.awt.Dimension(350, 10));
-            //pnl_healtbar2.add(prb_healthbar2, new java.awt.GridBagConstraints());
-
             lbl_name2.setText("Player 2");
             gridBagConstraints = new java.awt.GridBagConstraints();
             gridBagConstraints.gridx = 0;
@@ -172,8 +166,6 @@ public class Frame extends javax.swing.JFrame {
             pnl_healtbar2.add(lbl_name2, gridBagConstraints);
 
             pnl_north.add(pnl_healtbar2, java.awt.BorderLayout.LINE_END);
-
-            pnl_turns.setLayout(new java.awt.BorderLayout());
 
             jPanel1.setBackground(new java.awt.Color(153, 153, 153));
             //jPanel1.setBackground(new java.awt.Color(200, 120, 153));
@@ -190,14 +182,6 @@ public class Frame extends javax.swing.JFrame {
                     jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGap(0, 40, Short.MAX_VALUE)
             );
-
-            pnl_turns.add(jPanel1, java.awt.BorderLayout.CENTER);
-            pnl_turns.add(filler2, java.awt.BorderLayout.PAGE_START);
-            pnl_turns.add(filler3, java.awt.BorderLayout.WEST);
-            pnl_turns.add(filler4, java.awt.BorderLayout.EAST);
-            pnl_turns.add(filler6, java.awt.BorderLayout.PAGE_END);
-
-            pnl_north.add(pnl_turns, java.awt.BorderLayout.CENTER);
 
             getContentPane().add(pnl_north, java.awt.BorderLayout.NORTH);
 
@@ -495,6 +479,13 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(),10,60),
                 getFractionSize(GlobalVar.getScreenHeight(),5,40));
         add(player2Name);
+        //turn info
+        pnl_turns.setBounds(getFractionSize(GlobalVar.getScreenWidth(),28,60),
+                getFractionSize(GlobalVar.getScreenHeight(),1,60),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60));
+        add(pnl_turns);
+
         //grid debug
         grid = new GridHelper();
         if(isDebugMode) {
@@ -535,6 +526,7 @@ public class Frame extends javax.swing.JFrame {
         });
     }
     public void renderComponents(boolean debugMode){
+        add(pnl_turns);
         add(player2Name);
         add(player1Name);
         add(healthbar2);
@@ -640,7 +632,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_south_center;
     private javax.swing.JPanel pnl_south_east;
     private javax.swing.JPanel pnl_south_west;
-    private javax.swing.JPanel pnl_turns;
+    private TurnInfo pnl_turns;
     private HealthBar healthbar1;
     private HealthBar healthbar2;
     private JLabel player1Name;
