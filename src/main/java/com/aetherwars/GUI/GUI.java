@@ -32,8 +32,8 @@ public class GUI{
         frame.setLayout(new BorderLayout());
         
         UIManager.put("ProgressBar.foreground", Color.GREEN);
-        HealthBar hb_player1 = new HealthBar(player1_name, player1_health, Component.LEFT_ALIGNMENT);
-        HealthBar hb_player2 = new HealthBar(player2_name, player2_health, Component.RIGHT_ALIGNMENT);
+    //    HealthBar hb_player1 = new HealthBar(player1_name, player1_health, Component.LEFT_ALIGNMENT);
+    //    HealthBar hb_player2 = new HealthBar(player2_name, player2_health, Component.RIGHT_ALIGNMENT);
         
         JPanel pnl_turns = new JPanel();
         pnl_turns.setBackground(new Color(0xCCCCCC));
@@ -42,9 +42,9 @@ public class GUI{
         JPanel pnl_north = new JPanel();
         pnl_north.setLayout(new BorderLayout());
         
-        pnl_north.add(hb_player1, BorderLayout.LINE_START);
+     //   pnl_north.add(hb_player1, BorderLayout.LINE_START);
         pnl_north.add(pnl_turns, BorderLayout.CENTER);
-        pnl_north.add(hb_player2, BorderLayout.LINE_END);
+     //   pnl_north.add(hb_player2, BorderLayout.LINE_END);
         frame.add(pnl_north, BorderLayout.NORTH);
         frame.setVisible(true);
         frame.pack();

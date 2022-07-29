@@ -67,15 +67,11 @@ public class Frame extends javax.swing.JFrame {
    // // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void init() {
         java.awt.GridBagConstraints gridBagConstraints;
-        // new CardLabel("piglin","babi");
         jPanel7 = new javax.swing.JPanel();
         pnl_north = new javax.swing.JPanel();
-     //   pnl_healthbar1 = new javax.swing.JPanel();
-     //   prb_healthbar1 = new javax.swing.JProgressBar();
-        //prb_healthbar1 = new HealthBar("a",10,Component.LEFT_ALIGNMENT);
         lbl_name1 = new javax.swing.JLabel();
         pnl_healtbar2 = new javax.swing.JPanel();
-        prb_healthbar2 = new javax.swing.JProgressBar();
+        //prb_healthbar2 = new javax.swing.JProgressBar();
         lbl_name2 = new javax.swing.JLabel();
         pnl_turns = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -163,11 +159,11 @@ public class Frame extends javax.swing.JFrame {
             pnl_healtbar2.setPreferredSize(new java.awt.Dimension(375, 26));
             pnl_healtbar2.setLayout(new java.awt.GridBagLayout());
 
-            prb_healthbar2.setValue(50);
-            prb_healthbar2.setMaximumSize(new java.awt.Dimension(32767, 10));
-            prb_healthbar2.setMinimumSize(new java.awt.Dimension(10, 10));
-            prb_healthbar2.setPreferredSize(new java.awt.Dimension(350, 10));
-            pnl_healtbar2.add(prb_healthbar2, new java.awt.GridBagConstraints());
+            //prb_healthbar2.setValue(50);
+            //prb_healthbar2.setMaximumSize(new java.awt.Dimension(32767, 10));
+            //prb_healthbar2.setMinimumSize(new java.awt.Dimension(10, 10));
+            //prb_healthbar2.setPreferredSize(new java.awt.Dimension(350, 10));
+            //pnl_healtbar2.add(prb_healthbar2, new java.awt.GridBagConstraints());
 
             lbl_name2.setText("Player 2");
             gridBagConstraints = new java.awt.GridBagConstraints();
@@ -464,15 +460,26 @@ public class Frame extends javax.swing.JFrame {
 
             pnl_south.add(pnl_south_east, java.awt.BorderLayout.EAST);
             pnl_south.add(filler1, java.awt.BorderLayout.SOUTH);
-            //pnl_south.add(card,java.awt.BorderLayout.SOUTH);
 
             getContentPane().add(pnl_south, java.awt.BorderLayout.SOUTH);
         }
         //new layout
         //note: rendernya kek pake stack, jadi urutannya kebalik, yg terakhir ditambahin yang
         //pertama di render
-        healthbar1 = new HealthBar("Steve",100,Component.LEFT_ALIGNMENT);
+        //healthbar player 1
+        healthbar1 = new HealthBar(100,100,Component.LEFT_ALIGNMENT);
+        healthbar1.setBounds((int) ((1 / 60.0) * GlobalVar.getScreenWidth()),
+               (int) (2 / 40.0 * GlobalVar.getScreenHeight()),
+                (int)(15 / 60.0 * GlobalVar.getScreenWidth()),
+                (int) (1.5 / 40.0 * GlobalVar.getScreenHeight()));
         this.add(healthbar1);
+        //healthbar player 2
+        healthbar2 = new HealthBar(100,100,Component.RIGHT_ALIGNMENT);
+        healthbar2.setBounds((int) ((43 / 60.0) * GlobalVar.getScreenWidth()),
+                (int) (2 / 40.0 * GlobalVar.getScreenHeight()),
+                (int)(15 / 60.0 * GlobalVar.getScreenWidth()),
+                (int) (1.5 / 40.0 * GlobalVar.getScreenHeight()));
+        this.add(healthbar2);
         //grid debug
         grid = new GridHelper();
         if(isDebugMode) {
@@ -513,6 +520,7 @@ public class Frame extends javax.swing.JFrame {
         });
     }
     public void renderComponents(boolean debugMode){
+        add(healthbar2);
         this.add(healthbar1);
         if(debugMode){
             this.add(grid);
@@ -617,8 +625,9 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_south_west;
     private javax.swing.JPanel pnl_turns;
     private HealthBar healthbar1;
+    private HealthBar healthbar2;
     //private javax.swing.JProgressBar prb_healthbar1;
-    private javax.swing.JProgressBar prb_healthbar2;
+    //private javax.swing.JProgressBar prb_healthbar2;
     private java.awt.Button nextPhaseLabel;
     private GridHelper grid;
    // private CardLabel card;
