@@ -128,7 +128,6 @@ public class Frame extends javax.swing.JFrame {
         showManaLabel = new ShowManaLabel(0,1);
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 0));
 
-        System.out.println("aa:"+isDebugMode);
         if(1==0) {
             javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
             jPanel7.setLayout(jPanel7Layout);
@@ -480,6 +479,22 @@ public class Frame extends javax.swing.JFrame {
                 (int)(15 / 60.0 * GlobalVar.getScreenWidth()),
                 (int) (1.5 / 40.0 * GlobalVar.getScreenHeight()));
         this.add(healthbar2);
+        //player 1 name
+        player1Name = new JLabel("Steve");
+        player1Name.setFont(new Font("Serif",Font.BOLD,32));
+        player1Name.setBounds(getFractionSize(GlobalVar.getScreenWidth(),1.5,60),
+                getFractionSize(GlobalVar.getScreenHeight(),2.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),10,60),
+                getFractionSize(GlobalVar.getScreenHeight(),5,40));
+        add(player1Name);
+        //player 2 name
+        player2Name = new JLabel("Alex");
+        player2Name.setFont(new Font("Serif",Font.BOLD,32));
+        player2Name.setBounds(getFractionSize(GlobalVar.getScreenWidth(),55,60),
+                getFractionSize(GlobalVar.getScreenHeight(),2.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),10,60),
+                getFractionSize(GlobalVar.getScreenHeight(),5,40));
+        add(player2Name);
         //grid debug
         grid = new GridHelper();
         if(isDebugMode) {
@@ -520,6 +535,8 @@ public class Frame extends javax.swing.JFrame {
         });
     }
     public void renderComponents(boolean debugMode){
+        add(player2Name);
+        add(player1Name);
         add(healthbar2);
         this.add(healthbar1);
         if(debugMode){
@@ -626,8 +643,8 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_turns;
     private HealthBar healthbar1;
     private HealthBar healthbar2;
-    //private javax.swing.JProgressBar prb_healthbar1;
-    //private javax.swing.JProgressBar prb_healthbar2;
+    private JLabel player1Name;
+    private JLabel player2Name;
     private java.awt.Button nextPhaseLabel;
     private GridHelper grid;
    // private CardLabel card;

@@ -15,13 +15,18 @@ public class Game implements Publisher, Subscriber{
     private EventChannel channel;
     private Deck deck[];
     
-    public Game(Player p1, Player p2, EventChannel channel, List<?> listchar){
+    public Game(Player p1, Player p2, EventChannel channel, List<? extends Card> listchar){
     	this.deck = new Deck[2];
+        Random random = new Random();
     	for(int i=0; i<2; i++) {
     		for(int j=0; j<60; j++) {
-    			Random random = new Random();
     			int idx = random.nextInt(18);
-    			deck[i].addCard((Card)listchar.get(idx)); // add 60 karakter ke deck 
+                try {
+                    deck[i].addCard((Card) listchar.get(idx)); // add 60 karakter ke deck
+                }
+                catch(Exception e){
+                    System.out.println(e.toString());
+                }
     		}	
     	}
         this.players = new Player[2];

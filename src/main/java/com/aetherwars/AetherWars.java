@@ -10,6 +10,7 @@ import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.Character.Type;
 import com.aetherwars.controller.BoardController;
 import com.aetherwars.event.BoardChannel;
+import com.aetherwars.model.Player;
 import com.aetherwars.util.CSVReader;
 
 
@@ -52,7 +53,7 @@ public static List<Character> loadCards() throws IOException, URISyntaxException
     Character c = new Character(Integer.parseInt(row[0]),row[1],Integer.parseInt(row[7]),
             row[3], row[4], Type.valueOf(row[2]),Integer.parseInt(row[5]),Integer.parseInt(row[8]),
             Float.parseFloat(row[6]),Integer.parseInt(row[9]));
-    System.out.println(c);
+  //  System.out.println(c);
     listChar.add(c);
   }
   return listChar;
@@ -62,6 +63,20 @@ public static List<Character> loadCards() throws IOException, URISyntaxException
     Frame main_frame = new Frame(false);
     BoardChannel channel = new BoardChannel();
     BoardController board = new BoardController(channel);
+    Player p1 = new Player("Steve");
+    Player p2 = new Player("Alex");
+    List<Character> chara = null;
+
+    try {
+      chara = loadCards();
+    }
+    catch(IOException ioe){
+      System.out.println("File tidak ditemukan!");
+    }
+    catch(URISyntaxException e){
+      System.out.println("Sintaks URI bermasalah!");
+    }
+    Game game = new Game(p1,p2,null,chara);
    // try {
    //  List<Character> listChar =   AetherWars.loadCards();
    // } catch (Exception e) {
