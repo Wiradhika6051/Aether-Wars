@@ -30,12 +30,14 @@ public class Frame extends javax.swing.JFrame {
     private int screenWidth;
     private int screenHeight;
     public static Frame Instance;
+    int turn;
 
     /**
      * Creates new form Frame
      */
     private boolean isDebugMode;//jika true, maka fitur debug aktif
     public Frame(boolean isDebugMode) {
+        turn = 1;
         screenWidth = GlobalVar.getScreenWidth();
         screenHeight = GlobalVar.getScreenHeight();
         this.isDebugMode = isDebugMode;
@@ -73,7 +75,7 @@ public class Frame extends javax.swing.JFrame {
         pnl_healtbar2 = new javax.swing.JPanel();
         //prb_healthbar2 = new javax.swing.JProgressBar();
         lbl_name2 = new javax.swing.JLabel();
-        pnl_turns = new TurnInfo(1);
+        pnl_turns = new TurnInfo(turn);
         jPanel1 = new javax.swing.JPanel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 10));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(27, 0), new java.awt.Dimension(10, 0));
@@ -508,6 +510,7 @@ public class Frame extends javax.swing.JFrame {
                 System.out.println("pressed key:"+e.getKeyCode());
                 switch(e.getKeyCode()){
                     case 112://F1 ->aktifkan/nonaktifkan debug mode
+                   //     pnl_turns.updateTurn(++turn);
                         Frame instance = Frame.getInstance();
                         boolean debugMode = instance.getDebugMode();
                         instance.setDebugMode(!debugMode);

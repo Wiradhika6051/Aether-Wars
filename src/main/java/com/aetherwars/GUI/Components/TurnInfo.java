@@ -17,6 +17,9 @@ public class TurnInfo extends JPanel {
         g.fillOval(0,0,g.getClipBounds().width,g.getClipBounds().height);
         g.setFont(g.getFont().deriveFont(20f));
         g.setColor(Color.BLACK);
-        g.drawString("Turn "+this.turn,(int)(g.getClipBounds().width*0.3),(int)(g.getClipBounds().height*0.53));
+        g.drawString("Turn "+this.turn,(int)(g.getClipBounds().width*0.28),(int)(g.getClipBounds().height*0.53));
+    }
+    public void updateTurn(int turn){
+        this.turn = turn;
     }
 }
