@@ -487,7 +487,21 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(),4.5,60),
                 getFractionSize(GlobalVar.getScreenWidth(),4.5,60));
         add(pnl_turns);
-
+        //foto player 1
+        System.out.println("ehe");
+        player1Picture.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),3,60),
+                getFractionSize(GlobalVar.getScreenHeight(),11,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4,60),
+                getFractionSize(GlobalVar.getScreenHeight(),4,40));
+        add(player1Picture);
+        //foto player 2
+        player2Picture.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),52.5,60),
+                getFractionSize(GlobalVar.getScreenHeight(),11,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4,60),
+                getFractionSize(GlobalVar.getScreenHeight(),4,40));
+        add(player2Picture);
         //grid debug
         grid = new GridHelper();
         if(isDebugMode) {
@@ -514,7 +528,6 @@ public class Frame extends javax.swing.JFrame {
                         Frame instance = Frame.getInstance();
                         boolean debugMode = instance.getDebugMode();
                         instance.setDebugMode(!debugMode);
-                        System.out.println("yesy");
                         instance.getContentPane().removeAll();
                         instance.renderComponents(instance.getDebugMode());
                         instance.revalidate();
@@ -529,6 +542,8 @@ public class Frame extends javax.swing.JFrame {
         });
     }
     public void renderComponents(boolean debugMode){
+        add(player2Picture);
+        add(player1Picture);
         add(pnl_turns);
         add(player2Name);
         add(player1Name);

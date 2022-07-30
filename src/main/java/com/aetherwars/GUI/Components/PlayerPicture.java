@@ -9,14 +9,10 @@ import java.net.URL;
 
 public class PlayerPicture extends JPanel {
     private ImageIcon picture;
-    public javax.swing.GroupLayout previewLayout;
     private JLabel sprite;
 
     public PlayerPicture(String imagePath){
-        previewLayout = new GroupLayout(this);
-        this.setLayout(previewLayout);
-        previewLayout.setAutoCreateGaps(true);
-        previewLayout.setAutoCreateContainerGaps(true);
+        setLayout(null);
         //gambar kartu
         try {
             System.out.println(imagePath);
@@ -25,25 +21,16 @@ public class PlayerPicture extends JPanel {
             picture = new ImageIcon(original_image);
             //resize image
             Image image = picture.getImage();
-            Image new_img = image.getScaledInstance(80,80,Image.SCALE_DEFAULT);
+            Image new_img = image.getScaledInstance(110,110,Image.SCALE_DEFAULT);
             picture = new ImageIcon(new_img);
+            sprite = new JLabel(picture);
+            sprite.setBounds(0,0,picture.getIconWidth(),picture.getIconHeight());
+            add(sprite);
         }
         catch(Exception e){
             System.out.println(e);
         }
-        sprite = new JLabel(picture);
-        //this.setBackground(new java.awt.Color(50, 50, 50));
-
-        previewLayout.setVerticalGroup(
-                previewLayout.createSequentialGroup()
-                        .addGap(10, 20, Short.MAX_VALUE)
-                        .addComponent(this.sprite)//.addGap(0, 75, Short.MAX_VALUE)
-        );
-        previewLayout.setHorizontalGroup(
-                previewLayout.createParallelGroup(
-                                GroupLayout.Alignment.CENTER
-                        )
-                        .addComponent(this.sprite)//.addGap(0, 75, Short.MAX_VALUE)
-        );
+        System.out.println("a+"+picture);
+  //      sprite = new JLabel(picture);
     }
 }
