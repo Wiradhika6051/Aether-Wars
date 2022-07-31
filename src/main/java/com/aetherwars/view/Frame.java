@@ -451,6 +451,11 @@ public class Frame extends javax.swing.JFrame {
         //new layout
         //note: rendernya kek pake stack, jadi urutannya kebalik, yg terakhir ditambahin yang
         //pertama di render
+        //grid debug
+        grid = new GridHelper();
+        if(isDebugMode) {
+            this.add(grid);
+        }
         //healthbar player 1
         healthbar1 = new HealthBar(100,100,Component.LEFT_ALIGNMENT);
         healthbar1.setBounds((int) ((1 / 60.0) * GlobalVar.getScreenWidth()),
@@ -502,11 +507,89 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(),4,60),
                 getFractionSize(GlobalVar.getScreenHeight(),4,40));
         add(player2Picture);
-        //grid debug
-        grid = new GridHelper();
-        if(isDebugMode) {
-            this.add(grid);
-        }
+        //deck player A
+        //deck A
+        deck_A_player1.setBounds(
+               getFractionSize(GlobalVar.getScreenWidth(),8,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),8.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_A_player1);
+        //deck B
+        deck_B_player1.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),13,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),8.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_B_player1);
+        //deck C
+        deck_C_player1.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),8,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),13.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_C_player1);
+        //deck D
+        deck_D_player1.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),13,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),13.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_D_player1);
+        //deck E
+        deck_E_player1.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),18,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),11.1,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_E_player1);
+        //deck player B
+        //deck A
+        deck_A_player2.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),47,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),8.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_A_player2);
+        //deck B
+        deck_B_player2.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),42,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),8.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_B_player2);
+        //deck C
+        deck_C_player2.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),47,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),13.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_C_player2);
+        //deck D
+        deck_D_player2.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),42,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),13.5,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_D_player2);
+        //deck E
+        deck_E_player2.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),37,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),11.1,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4.5,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
+        );
+        add(deck_E_player2);
+
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
         }
@@ -542,6 +625,19 @@ public class Frame extends javax.swing.JFrame {
         });
     }
     public void renderComponents(boolean debugMode){
+        if(debugMode){
+            this.add(grid);
+        }
+        add(deck_E_player2);
+        add(deck_D_player2);
+        add(deck_C_player2);
+        add(deck_B_player2);
+        add(deck_A_player2);
+        add(deck_E_player1);
+        add(deck_D_player1);
+        add(deck_C_player1);
+        add(deck_B_player1);
+        add(deck_A_player1);
         add(player2Picture);
         add(player1Picture);
         add(pnl_turns);
@@ -549,9 +645,6 @@ public class Frame extends javax.swing.JFrame {
         add(player1Name);
         add(healthbar2);
         this.add(healthbar1);
-        if(debugMode){
-            this.add(grid);
-        }
     }
     // </editor-fold>//GEN-END:initComponents
     public void run(BoardController board_controller) {

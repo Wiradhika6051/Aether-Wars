@@ -12,10 +12,9 @@ public class GridHelper extends JPanel {
     public GridHelper() {
         this.screenWidth= GlobalVar.getScreenWidth();
         this.screenHeight = GlobalVar.getScreenHeight();
-   //     System.out.println(screenWidth+" "+screenHeight);
-        this.setSize(new Dimension((int)this.screenWidth,(int)this.screenHeight));
         this.setBounds(0,0,(int)this.screenWidth,(int)this.screenHeight);
         this.setLayout(null);
+        setOpaque(false);
         render();
     }
     public void render(){
@@ -29,7 +28,7 @@ public class GridHelper extends JPanel {
         for (int i = 0; i < 40; i++) {
             JLabel label = new JLabel(Integer.toString(i));
         //    System.out.println((int) (this.screenHeight * (i / 40.0)));
-            label.setBounds(470, (int) (this.screenHeight * (i / 40.0)), 50, 50);
+            label.setBounds(470, (int) (this.screenHeight * (i / 40.0))-(int)(this.screenHeight*1/60), 50, 50);
             add(label);
         }
         this.setVisible(true);
