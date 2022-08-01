@@ -87,7 +87,7 @@ public class Frame extends javax.swing.JFrame {
         player1Picture = new PlayerPicture("/com/aetherwars/card/image/Player/Steve.png");
         deck_A_player1 = new PlayerDeckCard("A");
         deck_C_player1 = new PlayerDeckCard("C");
-        deck_C_player1.addCharacter(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
+ //       deck_C_player1.addCharacter(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
         deck_B_player1 = new PlayerDeckCard("B");
    //     deck_B_player1.addCharacter(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,8,2,10,2),2));
   //      deck_B_player1.setSelected(true);
@@ -103,16 +103,20 @@ public class Frame extends javax.swing.JFrame {
         deck_E_player2 = new PlayerDeckCard("E");
         deck_C_player2 = new PlayerDeckCard("C");
         pnl_phase = new javax.swing.JPanel();
-        pnl_draw_phase = new javax.swing.JPanel();
+        pnl_draw_phase = new ProgressPanel("DRAW");
         label1 = new java.awt.Label();
-        pnl_plan_phase = new javax.swing.JPanel();
+        pnl_plan_phase = new ProgressPanel("PLAN");
         label2 = new java.awt.Label();
-        pnl_attack_phase = new javax.swing.JPanel();
+        pnl_attack_phase = new ProgressPanel("ATTACK");
         label3 = new java.awt.Label();
-        pnl_end_phase = new javax.swing.JPanel();
+        pnl_end_phase = new ProgressPanel("END");
         label4 = new java.awt.Label();
         pnl_next_phase = new javax.swing.JPanel();
         nextPhaseLabel = new java.awt.Button();
+        nextPhaseLabel.setLabel(">>");
+        //nextPhaseLabel.setAlignment(java.awt.Label.CENTER);
+        nextPhaseLabel.setBackground(new java.awt.Color(0, 0, 0));
+        nextPhaseLabel.setForeground(new java.awt.Color(225, 225, 225));
         pnl_south = new javax.swing.JPanel();
         pnl_south_west = new javax.swing.JPanel();
         handCard1 = new HandCardLabel(2,"card1_desc","/com/aetherwars/card/image/character/Creeper.png");
@@ -589,6 +593,41 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenHeight(),4.5,40)
         );
         add(deck_E_player2);
+        //phase
+        //draw
+        pnl_draw_phase.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),1,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),21,40),
+                getFractionSize(GlobalVar.getScreenWidth(),13,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),1.25,40)
+        );
+        add(pnl_draw_phase);
+        //plan
+        pnl_plan_phase.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),14.03,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),21,40),
+                getFractionSize(GlobalVar.getScreenWidth(),13,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),1.25,40)
+        );
+        add(pnl_plan_phase);
+        //attack
+        pnl_attack_phase.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),27.03,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),21,40),
+                getFractionSize(GlobalVar.getScreenWidth(),13,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),1.25,40)
+        );
+        add(pnl_attack_phase);
+        //end
+        pnl_end_phase.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),40.03,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),21,40),
+                getFractionSize(GlobalVar.getScreenWidth(),13,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),1.25,40)
+        );
+        add(pnl_end_phase);
+        //next phase button
+
 
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
@@ -628,6 +667,11 @@ public class Frame extends javax.swing.JFrame {
         if(debugMode){
             this.add(grid);
         }
+        add(nextPhaseLabel);
+        add(pnl_end_phase);
+        add(pnl_attack_phase);
+        add(pnl_plan_phase);
+        add(pnl_draw_phase);
         add(deck_E_player2);
         add(deck_D_player2);
         add(deck_C_player2);
@@ -724,13 +768,13 @@ public class Frame extends javax.swing.JFrame {
     private java.awt.Label label4;
     private javax.swing.JLabel lbl_name1;
     private javax.swing.JLabel lbl_name2;
-    private javax.swing.JPanel pnl_attack_phase;
+    private ProgressPanel pnl_attack_phase;
     private javax.swing.JPanel pnl_board;
     private javax.swing.JPanel pnl_card_description;
     private CardPreviewPanel pnl_card_preview;
     private javax.swing.JPanel pnl_center;
-    private javax.swing.JPanel pnl_draw_phase;
-    private javax.swing.JPanel pnl_end_phase;
+    private ProgressPanel pnl_draw_phase;
+    private ProgressPanel pnl_end_phase;
     private HandCardLabel handCard1;
     private HandCardLabel handCard2;
     private javax.swing.JPanel pnl_healtbar2;
@@ -738,7 +782,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JPanel pnl_next_phase;
     private javax.swing.JPanel pnl_north;
     private javax.swing.JPanel pnl_phase;
-    private javax.swing.JPanel pnl_plan_phase;
+    private ProgressPanel pnl_plan_phase;
     private javax.swing.JPanel pnl_south;
     private javax.swing.JPanel pnl_south_center;
     private javax.swing.JPanel pnl_south_east;
