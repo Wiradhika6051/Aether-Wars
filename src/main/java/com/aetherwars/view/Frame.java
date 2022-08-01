@@ -57,6 +57,20 @@ public class Frame extends javax.swing.JFrame {
     public void setDebugMode(boolean debugMode){
         this.isDebugMode= debugMode;
     }
+    public ProgressPanel getStateGUI(String phase){
+        switch(phase){
+            case "DRAW":
+                return pnl_draw_phase;
+            case "PLAN":
+                return pnl_plan_phase;
+            case "ATTACK":
+                return pnl_attack_phase;
+            case "END":
+                return pnl_end_phase;
+            default:
+                return null;
+        }
+    }
     public boolean getDebugMode(){
         return isDebugMode;
     }
@@ -104,6 +118,7 @@ public class Frame extends javax.swing.JFrame {
         deck_C_player2 = new PlayerDeckCard("C");
         pnl_phase = new javax.swing.JPanel();
         pnl_draw_phase = new ProgressPanel("DRAW");
+        pnl_draw_phase.setSelected(true);
         label1 = new java.awt.Label();
         pnl_plan_phase = new ProgressPanel("PLAN");
         label2 = new java.awt.Label();
@@ -112,11 +127,7 @@ public class Frame extends javax.swing.JFrame {
         pnl_end_phase = new ProgressPanel("END");
         label4 = new java.awt.Label();
         pnl_next_phase = new javax.swing.JPanel();
-        nextPhaseLabel = new java.awt.Button();
-        nextPhaseLabel.setLabel(">>");
-        //nextPhaseLabel.setAlignment(java.awt.Label.CENTER);
-        nextPhaseLabel.setBackground(new java.awt.Color(0, 0, 0));
-        nextPhaseLabel.setForeground(new java.awt.Color(225, 225, 225));
+        nextPhaseButton = new NextButton();
         pnl_south = new javax.swing.JPanel();
         pnl_south_west = new javax.swing.JPanel();
         handCard1 = new HandCardLabel(2,"card1_desc","/com/aetherwars/card/image/character/Creeper.png");
@@ -328,25 +339,8 @@ public class Frame extends javax.swing.JFrame {
             label4.setAlignment(java.awt.Label.CENTER);
             label4.setText("END");
             pnl_end_phase.add(label4, java.awt.BorderLayout.CENTER);
-            nextPhaseLabel.setLabel(">>");
-            //nextPhaseLabel.setAlignment(java.awt.Label.CENTER);
-            nextPhaseLabel.setBackground(new java.awt.Color(0, 0, 0));
-            nextPhaseLabel.setForeground(new java.awt.Color(225, 225, 225));
             pnl_next_phase.setBackground(new java.awt.Color(225, 225, 225));
             pnl_next_phase.setPreferredSize(new java.awt.Dimension(200, 24));
-
-            javax.swing.GroupLayout pnl_next_phaseLayout = new javax.swing.GroupLayout(pnl_next_phase);
-            pnl_next_phase.setLayout(pnl_next_phaseLayout);
-            pnl_next_phaseLayout.setHorizontalGroup(
-                    pnl_next_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nextPhaseLabel)
-                            .addGap(0, 90, Short.MAX_VALUE)
-            );
-            pnl_next_phaseLayout.setVerticalGroup(
-                    pnl_next_phaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nextPhaseLabel)
-                            .addGap(0, 24, Short.MAX_VALUE)
-            );
 
             javax.swing.GroupLayout pnl_phaseLayout = new javax.swing.GroupLayout(pnl_phase);
             pnl_phase.setLayout(pnl_phaseLayout);
@@ -627,7 +621,13 @@ public class Frame extends javax.swing.JFrame {
         );
         add(pnl_end_phase);
         //next phase button
-
+        nextPhaseButton.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),54,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),21,40),
+                getFractionSize(GlobalVar.getScreenWidth(),4,60) ,
+                getFractionSize(GlobalVar.getScreenHeight(),1.25,40)
+        );
+        add(nextPhaseButton);
 
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
@@ -667,7 +667,7 @@ public class Frame extends javax.swing.JFrame {
         if(debugMode){
             this.add(grid);
         }
-        add(nextPhaseLabel);
+        add(nextPhaseButton);
         add(pnl_end_phase);
         add(pnl_attack_phase);
         add(pnl_plan_phase);
@@ -792,7 +792,7 @@ public class Frame extends javax.swing.JFrame {
     private HealthBar healthbar2;
     private JLabel player1Name;
     private JLabel player2Name;
-    private java.awt.Button nextPhaseLabel;
+    private NextButton nextPhaseButton;
     private GridHelper grid;
    // private CardLabel card;
     // End of variables declaration//GEN-END:variables
