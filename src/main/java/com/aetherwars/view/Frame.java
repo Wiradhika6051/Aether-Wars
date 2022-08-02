@@ -31,12 +31,14 @@ public class Frame extends javax.swing.JFrame {
     private int screenHeight;
     public static Frame Instance;
     int turn;
+    int cardNum;
 
     /**
      * Creates new form Frame
      */
     private boolean isDebugMode;//jika true, maka fitur debug aktif
     public Frame(boolean isDebugMode) {
+        cardNum = 3;
         turn = 1;
         screenWidth = GlobalVar.getScreenWidth();
         screenHeight = GlobalVar.getScreenHeight();
@@ -628,6 +630,47 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenHeight(),1.25,40)
         );
         add(nextPhaseButton);
+        //kartu di tangan
+        //slot 1
+        handCard1.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 1, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 24, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
+        );
+        if(cardNum>0)add(handCard1);
+        //slot 2
+        handCard2.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 6.0313, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 24, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
+        );
+        if(cardNum>1)add(handCard2);
+        //slot 3
+        handCard3.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 11.07, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 24, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
+        );
+        if(cardNum>2)add(handCard3);
+        //slot4
+        handCard4.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 16.1, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 24, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
+        );
+        if(cardNum>3)add(handCard4);
+        //slot5
+        handCard5.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 21.14, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 24, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
+        );
+        if(cardNum>4)add(handCard5);
 
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
@@ -650,6 +693,7 @@ public class Frame extends javax.swing.JFrame {
                         Frame instance = Frame.getInstance();
                         boolean debugMode = instance.getDebugMode();
                         instance.setDebugMode(!debugMode);
+                     //   cardNum = (cardNum==5)? 1:(cardNum+1);
                         instance.getContentPane().removeAll();
                         instance.renderComponents(instance.getDebugMode());
                         instance.revalidate();
@@ -667,6 +711,11 @@ public class Frame extends javax.swing.JFrame {
         if(debugMode){
             this.add(grid);
         }
+        if(cardNum>4) add(handCard5);
+        if(cardNum>3)add(handCard4);
+        if(cardNum>2)add(handCard3);
+        if(cardNum>1)add(handCard2);
+        if(cardNum>0)add(handCard1);
         add(nextPhaseButton);
         add(pnl_end_phase);
         add(pnl_attack_phase);
@@ -688,7 +737,7 @@ public class Frame extends javax.swing.JFrame {
         add(player2Name);
         add(player1Name);
         add(healthbar2);
-        this.add(healthbar1);
+        add(healthbar1);
     }
     // </editor-fold>//GEN-END:initComponents
     public void run(BoardController board_controller) {

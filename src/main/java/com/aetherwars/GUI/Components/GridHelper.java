@@ -22,13 +22,13 @@ public class GridHelper extends JPanel {
         for (int i = 0; i < 60; i++) {
             JLabel label = new JLabel(Integer.toString(i));
          //   System.out.println((int) (this.screenWidth * (i / 40.0)));
-            label.setBounds((int) (this.screenWidth * (i / 60.0)), 200, 50, 50);
+            label.setBounds((int) (this.screenWidth * (i / 60.0)), GlobalVar.getScreenHeight()/2, 50, 50);
             add(label);
         }
         for (int i = 0; i < 40; i++) {
             JLabel label = new JLabel(Integer.toString(i));
         //    System.out.println((int) (this.screenHeight * (i / 40.0)));
-            label.setBounds(470, (int) (this.screenHeight * (i / 40.0))-(int)(this.screenHeight*1/60), 50, 50);
+            label.setBounds(GlobalVar.getScreenWidth()/3, (int) (this.screenHeight * (i / 40.0))-(int)(this.screenHeight*1/60), 50, 50);
             add(label);
         }
         this.setVisible(true);
