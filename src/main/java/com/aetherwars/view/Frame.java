@@ -58,6 +58,13 @@ public class Frame extends javax.swing.JFrame {
     }
     public void setDebugMode(boolean debugMode){
         this.isDebugMode= debugMode;
+        /*
+        if(isDebugMode){
+            pnl_card_preview.showSprite("/com/aetherwars/card/image/character/Sheep.png");
+        }
+        else{
+            pnl_card_preview.showSprite(null);
+        }*/
     }
     public ProgressPanel getStateGUI(String phase){
         switch(phase){
@@ -138,7 +145,7 @@ public class Frame extends javax.swing.JFrame {
         handCard4 = new HandCardLabel(5,"card4_desc","/com/aetherwars/card/image/spell/potion/GWS.png");
         handCard5 = new HandCardLabel(6,"card5_desc","/com/aetherwars/card/image/spell/swap/Swab Test.png");
         pnl_south_center = new javax.swing.JPanel();
-        pnl_card_preview = new CardPreviewPanel("/com/aetherwars/card/image/character/Sheep.png");
+        pnl_card_preview = new CardPreviewPanel();
         pnl_south_east = new javax.swing.JPanel();
         pnl_card_description = new CardDescriptionPanel(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
         jPanel2 = new javax.swing.JPanel();
@@ -671,7 +678,14 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
         );
         if(cardNum>4)add(handCard5);
-
+        //preview kartu
+        pnl_card_preview.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 29, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 23, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 6, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 11, 40)
+        );
+        add(pnl_card_preview);
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
         }
@@ -693,7 +707,7 @@ public class Frame extends javax.swing.JFrame {
                         Frame instance = Frame.getInstance();
                         boolean debugMode = instance.getDebugMode();
                         instance.setDebugMode(!debugMode);
-                     //   cardNum = (cardNum==5)? 1:(cardNum+1);
+                    //    cardNum = (cardNum==5)? 1:(cardNum+1);
                         instance.getContentPane().removeAll();
                         instance.renderComponents(instance.getDebugMode());
                         instance.revalidate();
@@ -716,6 +730,7 @@ public class Frame extends javax.swing.JFrame {
         if(cardNum>2)add(handCard3);
         if(cardNum>1)add(handCard2);
         if(cardNum>0)add(handCard1);
+        add(pnl_card_preview);
         add(nextPhaseButton);
         add(pnl_end_phase);
         add(pnl_attack_phase);
