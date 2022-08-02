@@ -147,7 +147,8 @@ public class Frame extends javax.swing.JFrame {
         pnl_south_center = new javax.swing.JPanel();
         pnl_card_preview = new CardPreviewPanel();
         pnl_south_east = new javax.swing.JPanel();
-        pnl_card_description = new CardDescriptionPanel(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
+     //   pnl_card_description = new CardDescriptionPanel(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
+        pnl_card_description = new CardDescriptionPanel();
         jPanel2 = new javax.swing.JPanel();
         cardDeckPanel = new CardDeckPanel(20,60);
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
@@ -686,6 +687,15 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenHeight(), 11, 40)
         );
         add(pnl_card_preview);
+        //deskripsi kartu
+        pnl_card_description.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 36, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 24, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 8.5, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
+        );
+        add(pnl_card_description);
+
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
         }
@@ -725,6 +735,7 @@ public class Frame extends javax.swing.JFrame {
         if(debugMode){
             this.add(grid);
         }
+        add(pnl_card_description);
         if(cardNum>4) add(handCard5);
         if(cardNum>3)add(handCard4);
         if(cardNum>2)add(handCard3);
