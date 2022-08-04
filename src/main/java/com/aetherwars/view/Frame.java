@@ -32,6 +32,7 @@ public class Frame extends javax.swing.JFrame {
     public static Frame Instance;
     int turn;
     int cardNum;
+    int CURCARD=20;
 
     /**
      * Creates new form Frame
@@ -149,7 +150,7 @@ public class Frame extends javax.swing.JFrame {
      //   pnl_card_description = new CardDescriptionPanel(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
         pnl_card_description = new CardDescriptionPanel();
         jPanel2 = new javax.swing.JPanel();
-        cardDeckPanel = new CardDeckPanel(20,60);
+        cardDeckPanel = new CardDeckPanel(CURCARD,60);
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
         showManaLabel = new ShowManaLabel(0,1);
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 0));
@@ -657,8 +658,15 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(), 8.5, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
         );
-     //   descriptionPanel.setText("ehe");
         add(descriptionPanel);
+        //info jumlah kartu di deck
+        cardDeckPanel.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 54, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 25, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 4, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 3, 40)
+        );
+        add(cardDeckPanel);
 
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
@@ -682,6 +690,8 @@ public class Frame extends javax.swing.JFrame {
                         boolean debugMode = instance.getDebugMode();
                         instance.setDebugMode(!debugMode);
                     //    cardNum = (cardNum==5)? 1:(cardNum+1);
+                    //    CURCARD++;
+                       // cardDeckPanel.updateDeck(CURCARD);
                         instance.getContentPane().removeAll();
                         instance.renderComponents(instance.getDebugMode());
                         instance.revalidate();
@@ -699,6 +709,7 @@ public class Frame extends javax.swing.JFrame {
         if(debugMode){
             this.add(grid);
         }
+        add(cardDeckPanel);
         add(descriptionPanel);
         add(pnl_card_description);
         if(cardNum>4) add(handCard5);
