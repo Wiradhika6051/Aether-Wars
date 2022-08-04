@@ -118,7 +118,6 @@ public class Frame extends javax.swing.JFrame {
         deck_E_player1 = new PlayerDeckCard("E");
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel14 = new javax.swing.JPanel();
-        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         player2Picture = new PlayerPicture("/com/aetherwars/card/image/Player/Alex.jpg");
         deck_A_player2 = new PlayerDeckCard("A");
         deck_B_player2 = new PlayerDeckCard("B");
@@ -154,7 +153,7 @@ public class Frame extends javax.swing.JFrame {
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5));
         showManaLabel = new ShowManaLabel(0,1);
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 0));
-
+        descriptionPanel = new DescriptionPanel();
         if(1==0) {
             javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
             jPanel7.setLayout(jPanel7Layout);
@@ -269,50 +268,6 @@ public class Frame extends javax.swing.JFrame {
             pnl_board.add(jPanel13);
             javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
             jPanel14.setLayout(jPanel14Layout);
-            jPanel14Layout.setHorizontalGroup(
-                    jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                                    .addContainerGap(31, Short.MAX_VALUE)
-                                    .addComponent(deck_E_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(deck_B_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(deck_D_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(deck_A_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(deck_C_player2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGap(18, 18, 18)
-                                    .addComponent(player2Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(filler8, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap())
-            );
-            jPanel14Layout.setVerticalGroup(
-                    jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                    .addGap(93, 93, 93)
-                                    .addComponent(filler8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                                    .addContainerGap(31, Short.MAX_VALUE)
-                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(deck_B_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(deck_A_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addGap(18, 18, 18)
-                                                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(deck_C_player2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(deck_D_player2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                                    .addGap(47, 47, 47)
-                                                    .addComponent(deck_E_player2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel14Layout.createSequentialGroup()
-                                                    .addGap(15, 15, 20)
-                                                    .addComponent(player2Picture, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(24, 24, 24))
-            );
 
             pnl_board.add(jPanel14);
 
@@ -687,7 +642,7 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenHeight(), 11, 40)
         );
         add(pnl_card_preview);
-        //deskripsi kartu
+        //stat kartu
         pnl_card_description.setBounds(
                 getFractionSize(GlobalVar.getScreenWidth(), 36, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 24, 40),
@@ -695,6 +650,15 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
         );
         add(pnl_card_description);
+        //deskripsi kartu
+        descriptionPanel.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 44.5, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 24, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 8.5, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
+        );
+     //   descriptionPanel.setText("ehe");
+        add(descriptionPanel);
 
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
@@ -735,6 +699,7 @@ public class Frame extends javax.swing.JFrame {
         if(debugMode){
             this.add(grid);
         }
+        add(descriptionPanel);
         add(pnl_card_description);
         if(cardNum>4) add(handCard5);
         if(cardNum>3)add(handCard4);
@@ -814,7 +779,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
-    private javax.swing.Box.Filler filler8;
+    private DescriptionPanel descriptionPanel;
     private javax.swing.JPanel jPanel1;
     private PlayerPicture player1Picture;
     private javax.swing.JPanel jPanel13;
