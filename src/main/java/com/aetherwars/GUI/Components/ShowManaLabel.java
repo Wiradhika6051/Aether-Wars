@@ -1,43 +1,48 @@
 package com.aetherwars.GUI.Components;
 
+import com.aetherwars.util.GlobalVar;
+
 import javax.swing.*;
+import java.awt.*;
+
+import static com.aetherwars.util.Utility.getFractionSize;
 
 public class ShowManaLabel extends JPanel {
     private int  currentMana;
     private int maxMana;
-    public  javax.swing.GroupLayout showManaLayout;
     public JLabel manalabel;
     public JLabel manaLeftLabel;
     public ShowManaLabel(int currentMana,int maxMana){
-        showManaLayout = new GroupLayout(this);
-        this.setLayout(showManaLayout);
-        showManaLayout.setAutoCreateGaps(true);
-        showManaLayout.setAutoCreateContainerGaps(true);
+        this.setLayout(null);
         this.currentMana = currentMana;
         this.maxMana = maxMana;
         this.manalabel = new JLabel("Mana");
         this.manaLeftLabel = new JLabel(this.currentMana+"/"+this.maxMana);
+        manalabel.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 1, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 0.3, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 4, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 1, 40)
+        );
+        manalabel.setFont(new Font("Default",Font.PLAIN,26));
+        manaLeftLabel.setFont(new Font("Default",Font.PLAIN,26));
+        manaLeftLabel.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 1.4, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 1.6, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 4, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 1, 40)
+        );
         this.setBackground(new java.awt.Color(200, 200, 200));
-        this.setPreferredSize(new java.awt.Dimension(100, 50));
-
-        showManaLayout.setHorizontalGroup(
-                showManaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(this.manalabel)
-                        .addGap(0, 10, Short.MAX_VALUE)
-                        .addComponent(this.manaLeftLabel)
-                        .addGap(0, 10, Short.MAX_VALUE)
-        );
-        showManaLayout.setVerticalGroup(
-                showManaLayout.createSequentialGroup()
-                        .addComponent(this.manalabel)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(this.manaLeftLabel)
-                        .addGap(0, 20, Short.MAX_VALUE)
-        );
+        add(manalabel);
+        add(manaLeftLabel);
+        setBorder(GlobalVar.blackLineBorder);
     }
-    public void updatePlayerMana(int mana,int currentMana){
+    public void updateCurrentMana(int mana){
         this.currentMana = mana;
-        this.maxMana = currentMana;
+        this.manaLeftLabel.setText(this.currentMana+"/"+this.maxMana);
+    }
+    public void updateMaxMana(int maxMana){
+        this.maxMana = maxMana;
         this.manaLeftLabel.setText(this.currentMana+"/"+this.maxMana);
     }
 }

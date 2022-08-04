@@ -667,6 +667,14 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenHeight(), 3, 40)
         );
         add(cardDeckPanel);
+        //info jumlah mana player
+        showManaLabel.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(), 54, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 29, 40),
+                getFractionSize(GlobalVar.getScreenWidth(), 4, 60),
+                getFractionSize(GlobalVar.getScreenHeight(), 3, 40)
+        );
+        add(showManaLabel);
 
         for(Component c:this.getContentPane().getComponents()){
             System.out.println(c);
@@ -690,8 +698,11 @@ public class Frame extends javax.swing.JFrame {
                         boolean debugMode = instance.getDebugMode();
                         instance.setDebugMode(!debugMode);
                     //    cardNum = (cardNum==5)? 1:(cardNum+1);
-                    //    CURCARD++;
+                       // CURCARD++;
+                       // CURCARD%=61;
                        // cardDeckPanel.updateDeck(CURCARD);
+                      //  showManaLabel.updateCurrentMana(3);
+                      //  showManaLabel.updateMaxMana(4);
                         instance.getContentPane().removeAll();
                         instance.renderComponents(instance.getDebugMode());
                         instance.revalidate();
@@ -709,6 +720,7 @@ public class Frame extends javax.swing.JFrame {
         if(debugMode){
             this.add(grid);
         }
+        add(showManaLabel);
         add(cardDeckPanel);
         add(descriptionPanel);
         add(pnl_card_description);
