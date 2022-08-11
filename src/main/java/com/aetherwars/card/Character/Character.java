@@ -33,5 +33,5 @@ public class Character extends Card implements Summonable {
   public int getHealthUp(){
     return this.healthUp;
   }
-  
+
 }

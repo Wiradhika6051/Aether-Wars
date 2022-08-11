@@ -1,6 +1,6 @@
 package com.aetherwars.card;
 
-public class Card {
+public abstract class Card{
     protected int id;
     protected String name;
     protected int mana;
@@ -54,4 +54,5 @@ public class Card {
     public void setImagepath(String imagepath) {
         this.imagepath = imagepath;
     }
+
 }
