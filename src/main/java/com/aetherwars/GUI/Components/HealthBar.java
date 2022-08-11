@@ -15,6 +15,7 @@ public class HealthBar extends JProgressBar {
         this.maxHP = maxHP;
         this.hp = hp;
         this.setBorder(GlobalVar.blackLineBorder);
+        setMaximum(maxHP);
         if(align==Component.RIGHT_ALIGNMENT){
             reverse();
         }

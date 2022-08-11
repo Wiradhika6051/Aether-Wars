@@ -135,14 +135,14 @@ public class Frame extends javax.swing.JFrame {
             this.add(grid);
         }
         //healthbar player 1
-        healthbar1 = new HealthBar(100,100,Component.LEFT_ALIGNMENT);
+        healthbar1 = new HealthBar(80,80,Component.LEFT_ALIGNMENT);
         healthbar1.setBounds((int) ((1 / 60.0) * GlobalVar.getScreenWidth()),
                (int) (2 / 40.0 * GlobalVar.getScreenHeight()),
                 (int)(15 / 60.0 * GlobalVar.getScreenWidth()),
                 (int) (1.5 / 40.0 * GlobalVar.getScreenHeight()));
         this.add(healthbar1);
         //healthbar player 2
-        healthbar2 = new HealthBar(100,100,Component.RIGHT_ALIGNMENT);
+        healthbar2 = new HealthBar(80,80,Component.RIGHT_ALIGNMENT);
         healthbar2.setBounds((int) ((43 / 60.0) * GlobalVar.getScreenWidth()),
                 (int) (2 / 40.0 * GlobalVar.getScreenHeight()),
                 (int)(15 / 60.0 * GlobalVar.getScreenWidth()),

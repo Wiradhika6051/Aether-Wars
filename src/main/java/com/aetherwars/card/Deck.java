@@ -5,8 +5,8 @@ import java.util.Random;
 public class Deck {
     private Card[] cards;
 
-    public Deck() {
-        this.cards = new Card[60];
+    public Deck(int MaxCard) {
+        this.cards = new Card[MaxCard];
     }
 
     public void addCard(Card card) {

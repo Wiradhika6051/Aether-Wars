@@ -2,11 +2,21 @@ package com.aetherwars;
 import com.aetherwars.model.*;
 import com.aetherwars.card.*;
 import com.aetherwars.card.Character.*;
+
+import java.lang.Character;
 import java.util.*;
 
 import com.aetherwars.event.*;
 
 public class Game implements Publisher, Subscriber{
+    private final int MAX_CARD = 60;
+    private final int MIN_CARD = 40;
+    //pembagian kartu: 40% chara, 10% morph,35% potion,15% swap
+    private final float CHARA_PERCENTAGE = 0.4f;
+    private final float MORPH_PERCENTAGE = 0.1f;
+    private final float POTION_PERCENTAGE = 0.35f;
+    private final float SWAP_PERCENTAGE = 0.15f;
+
     private Player players[];
     private int turns;
     private int phase_id = 0;
@@ -14,26 +24,68 @@ public class Game implements Publisher, Subscriber{
     private int cur_player;
     private EventChannel channel;
     private Deck deck[];
+    Random random;
+    CardFactory cf;
     
-    public Game(Player p1, Player p2, EventChannel channel, List<? extends Card> listchar){
+    public Game(Player p1, Player p2, EventChannel channel, CardFactory cf){
+        this.cf = cf;
     	this.deck = new Deck[2];
-        Random random = new Random();
+        this.random = new Random();
+        //dapetin jumlah kartu yg dimasukkan (40-60 inclusive)
+        int maxCard =  MIN_CARD + random.nextInt()%(MAX_CARD-MIN_CARD+1);
     	for(int i=0; i<2; i++) {
-    		for(int j=0; j<60; j++) {
-    			int idx = random.nextInt(18);
-                try {
-                    deck[i].addCard((Card) listchar.get(idx)); // add 60 karakter ke deck
-                }
-                catch(Exception e){
-                    System.out.println(e.toString());
-                }
-    		}	
+            this.deck[i]= new Deck(maxCard);
+            populateDeck(this.deck[i],maxCard);
     	}
         this.players = new Player[2];
         this.players[0] = p1;
         this.players[1] = p2;
         this.channel = channel;
         this.cur_player = 0;
+    }
+    void populateDeck(Deck deck,int maxCard){
+        //isi dengan chara
+        int charCount = (int) (maxCard * CHARA_PERCENTAGE);
+        CardDatabase charaDB = cf.getDatabase("Character");
+        for(int i =0;i<charCount;i++){
+            int id = charaDB.getKeySet().get(random.nextInt(charaDB.getKeySet().size()));
+            deck.addCard(charaDB.getCard(id));
+        }
+        //isi dengan spell morph
+        int morphCount = (int) (maxCard * MORPH_PERCENTAGE);
+        CardDatabase morphDB = cf.getDatabase("Morph Spell");
+        for(int i =0;i<morphCount;i++){
+            int id = morphDB.getKeySet().get(random.nextInt(morphDB.getKeySet().size()));
+            deck.addCard(morphDB.getCard(id));
+        }
+        //isi dengan spell potion
+        int potionCount = (int) (maxCard * POTION_PERCENTAGE);
+        CardDatabase potionDB = cf.getDatabase("Potion Spell");
+        for(int i =0;i<potionCount;i++){
+            int id = potionDB.getKeySet().get(random.nextInt(potionDB.getKeySet().size()));
+            deck.addCard(potionDB.getCard(id));
+        }
+        //isi dengan spell swap
+        int swapCount = (int) (maxCard * SWAP_PERCENTAGE);
+        CardDatabase swapDB = cf.getDatabase("Swap Spell");
+        for(int i =0;i<swapCount;i++){
+            int id = swapDB.getKeySet().get(random.nextInt(swapDB.getKeySet().size()));
+        //    System.out.println(id);
+            deck.addCard(swapDB.getCard(id));
+         //   System.out.println(swapDB.getCard(id));
+        }
+        //cek jika belum pas
+        int totalCount = charCount+morphCount+potionCount+swapCount;
+        String[] cardType = {"Character","Morph Spell","Potion Spell","Swap Spell"};
+        while(totalCount<maxCard){
+            CardDatabase db = cf.getDatabase(cardType[random.nextInt(cardType.length)]);
+            int id = random.nextInt(db.getKeySet().size());
+            deck.addCard(db.getCard(id));
+            totalCount++;
+        }
+        //kalo kelebihan gak ketambah otomatis
+        System.out.println("ehe");
+        System.out.println(deck.drawCard());
     }
     
     public void setup(){

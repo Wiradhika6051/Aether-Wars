@@ -17,7 +17,7 @@ public class AetherWars{
     BoardController board = new BoardController(channel);
     Player p1 = new Player("Steve");
     Player p2 = new Player("Alex");
-    CardFactory cardFactory;
+    CardFactory cardFactory=null;
 
     try {
       cardFactory = GlobalInitializer.loadCards();
@@ -31,7 +31,7 @@ public class AetherWars{
     catch(Exception e){
       System.out.println("Failed to load cards: " + e);
     }
-   // Game game = new Game(p1,p2,null,chara);
+    Game game = new Game(p1,p2,null,cardFactory);
     main_frame.run(board);
   }
 }
