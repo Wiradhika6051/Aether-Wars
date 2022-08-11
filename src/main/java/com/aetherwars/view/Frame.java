@@ -5,6 +5,7 @@
 package com.aetherwars.view;
 
 import com.aetherwars.GUI.Components.*;
+import com.aetherwars.Game;
 import com.aetherwars.card.Character.Type;
 import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
@@ -33,6 +34,7 @@ public class Frame extends javax.swing.JFrame {
     int turn;
     int cardNum;
     int CURCARD=20;
+    Game game;
 
     /**
      * Creates new form Frame
@@ -51,11 +53,9 @@ public class Frame extends javax.swing.JFrame {
         this.setLayout(null);
         init();
         initKeyListener();
+        setVisible(true);
     }
     public static Frame getInstance(){
-        if(Instance==null){
-            Instance = new Frame(true);
-        }
         return Instance;
     }
     public void setDebugMode(boolean debugMode){
@@ -468,10 +468,15 @@ public class Frame extends javax.swing.JFrame {
         add(healthbar1);
     }
     // </editor-fold>//GEN-END:initComponents
-    public void run(BoardController board_controller) {
+    public void run() {
         this.board_controller = board_controller;
+        this.game = game;
         this.setVisible(true);
-
+        //mulai game
+        mainloop();
+    }
+    void mainloop(){
+        game.setup();
     }
     /**
      * @param args the command line arguments

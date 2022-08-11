@@ -43,6 +43,9 @@ public class Game implements Publisher, Subscriber{
         this.channel = channel;
         this.cur_player = 0;
     }
+    public Game getGameManager(){
+        return this;
+    }
     void populateDeck(Deck deck,int maxCard){
         //isi dengan chara
         int charCount = (int) (maxCard * CHARA_PERCENTAGE);
