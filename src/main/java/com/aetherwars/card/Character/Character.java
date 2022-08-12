@@ -34,4 +34,9 @@ public class Character extends Card implements Summonable {
     return this.healthUp;
   }
 
+  @Override
+  public Card cloneCard() {
+    Character chara = new Character(id, name, mana, description, imagepath,type,atk_0,attackUp,hp_0,healthUp);
+    return chara;
+  }
 }

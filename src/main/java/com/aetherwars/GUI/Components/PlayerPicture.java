@@ -15,7 +15,7 @@ public class PlayerPicture extends JPanel {
         setLayout(null);
         //gambar kartu
         try {
-            System.out.println(imagePath);
+          //  System.out.println(imagePath);
             URL path = getClass().getResource(imagePath);
             BufferedImage original_image = ImageIO.read(new File(path.toURI()));
             picture = new ImageIcon(original_image);
@@ -30,7 +30,7 @@ public class PlayerPicture extends JPanel {
         catch(Exception e){
             System.out.println(e);
         }
-        System.out.println("a+"+picture);
+      //  System.out.println("a+"+picture);
   //      sprite = new JLabel(picture);
     }
 }

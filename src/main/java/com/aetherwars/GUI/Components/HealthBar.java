@@ -43,6 +43,10 @@ public class HealthBar extends JProgressBar {
         this.setValue(shownvalue);
         this.setString(this.hp + "/" + this.maxHP);
     }
+    public void updateMaxHP(int MaxHP){
+        this.maxHP = MaxHP;
+        setMaximum(MaxHP);
+    }
     public void reverse(){
         int shownValue = this.maxHP-this.hp;
         this.setValue(shownValue);

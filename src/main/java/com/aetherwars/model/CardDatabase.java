@@ -19,7 +19,13 @@ public class CardDatabase {
      }
 
     public Card getCard(int id) {
-        return charaDatabases.get(id);
+        Card temp = charaDatabases.get(id);
+        if(temp==null){
+            System.out.println("anying "+id+" "+temp);
+        }
+       Card clone =  temp.cloneCard();
+       return clone;
+     //   return temp;
     }
 
     public void insertCard(Card card) {

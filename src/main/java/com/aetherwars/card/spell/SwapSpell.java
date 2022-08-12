@@ -1,7 +1,9 @@
 package com.aetherwars.card.spell;
 
+import com.aetherwars.card.Card;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.SummonedCharacter;
+import com.aetherwars.util.initializer.SwapSpellInitializer;
 
 public class SwapSpell extends Spell {
     private int duration;
@@ -29,5 +31,11 @@ public class SwapSpell extends Spell {
         int temp = target.getAttack();
         target.setAttack((int)target.getHealth());
         target.setHealth(temp);
+    }
+
+    @Override
+    public Card cloneCard() {
+        SwapSpell swap = new SwapSpell(id, name, mana, description, imagepath,duration);
+        return swap;
     }
 }

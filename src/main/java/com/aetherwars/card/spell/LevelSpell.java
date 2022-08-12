@@ -1,5 +1,6 @@
 package com.aetherwars.card.spell;
 
+import com.aetherwars.card.Card;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.SummonedCharacter;
 
@@ -35,5 +36,11 @@ public class LevelSpell extends Spell {
         } else {
             System.out.println("Not enough mana!");
         }
+    }
+
+    @Override
+    public Card cloneCard() {
+        LevelSpell level = new LevelSpell(id, name, mana, description, imagepath,levelChange);
+        return level;
     }
 }

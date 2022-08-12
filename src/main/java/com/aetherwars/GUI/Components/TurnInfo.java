@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class TurnInfo extends JPanel {
-    int turn;
-    public TurnInfo(int turn){
-        this.turn = turn;
+    int turn=0;
+    public TurnInfo(){
         setLayout(null);
     }
 

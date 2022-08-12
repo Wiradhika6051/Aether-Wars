@@ -5,6 +5,7 @@
 package com.aetherwars.view;
 
 import com.aetherwars.GUI.Components.*;
+import com.aetherwars.Game;
 import com.aetherwars.card.Character.Type;
 import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
@@ -29,7 +30,7 @@ public class Frame extends javax.swing.JFrame {
     private int screenWidth;
     private int screenHeight;
     public static Frame Instance;
-    int turn;
+   // int turn;
     int cardNum;
     int CURCARD=20;
 
@@ -40,7 +41,7 @@ public class Frame extends javax.swing.JFrame {
     public Frame(boolean isDebugMode) {
         setTitle("Aether Wars");
         cardNum = 3;
-        turn = 1;
+    //    turn = 1;
         screenWidth = GlobalVar.getScreenWidth();
         screenHeight = GlobalVar.getScreenHeight();
         this.isDebugMode = isDebugMode;
@@ -64,6 +65,16 @@ public class Frame extends javax.swing.JFrame {
         else{
             pnl_card_preview.showSprite(null);
         }*/
+    }
+    public void initPhase(Game game){
+        //update turn
+        pnl_turns.updateTurn(game.getTurn());
+        //update healthbar
+        healthbar1.updateHP(game.getPlayer(0).getHP());
+        healthbar2.updateHP(game.getPlayer(1).getHP());
+        //update deck
+        cardDeckPanel.setMaxCard(game.getDeck(game.getCurPlayer()).getMaxSize());
+        cardDeckPanel.updateDeck(game.getDeck(game.getCurPlayer()).getSize());
     }
     public ProgressPanel getStateGUI(String phase){
         switch(phase){
@@ -90,7 +101,7 @@ public class Frame extends javax.swing.JFrame {
   //  @SuppressWarnings("unchecked")
    // // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void init() {
-        pnl_turns = new TurnInfo(turn);
+        pnl_turns = new TurnInfo();
         player1Picture = new PlayerPicture("/com/aetherwars/card/image/Player/Steve.png");
         deck_A_player1 = new PlayerDeckCard("A");
         deck_C_player1 = new PlayerDeckCard("C");
@@ -120,7 +131,7 @@ public class Frame extends javax.swing.JFrame {
         pnl_card_preview = new CardPreviewPanel();
      //   pnl_card_description = new CardDescriptionPanel(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
         pnl_card_description = new CardDescriptionPanel();
-        cardDeckPanel = new CardDeckPanel(CURCARD,60);
+        cardDeckPanel = new CardDeckPanel();
         showManaLabel = new ShowManaLabel(0,1);
         descriptionPanel = new DescriptionPanel();
         //new layout
@@ -387,9 +398,9 @@ public class Frame extends javax.swing.JFrame {
         );
         add(showManaLabel);
 
-        for(Component c:this.getContentPane().getComponents()){
-            System.out.println(c);
-        }
+     //   for(Component c:this.getContentPane().getComponents()){
+     //       System.out.println(c);
+     //   }
     }
 
     private void initKeyListener(){

@@ -14,7 +14,10 @@ public abstract class Card{
         this.description = description;
         this.imagepath = imagepath;
     }
+    public Card(Card card){
 
+    }
+    public abstract Card cloneCard();
     public int getId() {
         return id;
     }

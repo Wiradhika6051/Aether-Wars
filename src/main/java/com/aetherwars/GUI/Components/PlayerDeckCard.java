@@ -46,7 +46,7 @@ public class PlayerDeckCard extends JPanel {
     public void initializeDeckCard(){
         this.deckLabel = new JLabel(deckNumber);
         this.deckLabel.setFont(new Font("Serif", Font.PLAIN, 43));
-        System.out.println("gomene");
+      //  System.out.println("gomene");
         this.deckLabel.setBounds(
                 getFractionSize(GlobalVar.getScreenWidth(),1.8,60),
                 getFractionSize(GlobalVar.getScreenHeight(),1.25,40),
@@ -200,7 +200,7 @@ public class PlayerDeckCard extends JPanel {
     private ImageIcon loadAsset(String imagePath,int scaledWith,int scaledHeight){
         Image new_img = null;
         try {
-            System.out.println(imagePath);
+      //      System.out.println(imagePath);
             URL path = getClass().getResource(imagePath);
             BufferedImage original_image = ImageIO.read(new File(path.toURI()));
             ImageIcon image_pre = new ImageIcon(original_image);
@@ -217,7 +217,7 @@ public class PlayerDeckCard extends JPanel {
         addMouseListener(new MouseAdapter(){
             @Override
             public void mousePressed(MouseEvent e) {
-                System.out.println("ehe"+isSelected);
+         //       System.out.println("ehe"+isSelected);
                 isSelected = !isSelected;
                 setSelected(isSelected);
                 Frame.getInstance().getContentPane().removeAll();

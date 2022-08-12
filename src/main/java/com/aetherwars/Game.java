@@ -7,6 +7,7 @@ import java.lang.Character;
 import java.util.*;
 
 import com.aetherwars.event.*;
+import com.aetherwars.view.Frame;
 
 public class Game implements Publisher, Subscriber{
     private final int MAX_CARD = 60;
@@ -29,11 +30,14 @@ public class Game implements Publisher, Subscriber{
     CardFactory cf;
     
     public Game(Player p1, Player p2, EventChannel channel, CardFactory cf){
+        turns = 1;
         this.cf = cf;
     	this.deck = new Deck[2];
         this.random = new Random(System.currentTimeMillis());
         //dapetin jumlah kartu yg dimasukkan (40-60 inclusive)
-        int maxCard =  MIN_CARD + random.nextInt()%(MAX_CARD-MIN_CARD+1);
+        int randd = Math.abs(random.nextInt());
+        int maxCard =  MIN_CARD + randd%(MAX_CARD-MIN_CARD+1);
+     //   System.out.println(maxCard+" "+((MAX_CARD-MIN_CARD+1))+" "+randd);
     	for(int i=0; i<2; i++) {
             this.deck[i]= new Deck(maxCard);
             populateDeck(this.deck[i],maxCard);
@@ -51,6 +55,7 @@ public class Game implements Publisher, Subscriber{
         //isi dengan chara
         int charCount = (int) (maxCard * CHARA_PERCENTAGE);
         CardDatabase charaDB = cf.getDatabase("Character");
+        System.out.println("chara");
         for(int i =0;i<charCount;i++){
             int id = charaDB.getKeySet().get(random.nextInt(charaDB.getKeySet().size()));
             deck.addCard(charaDB.getCard(id));
@@ -58,12 +63,14 @@ public class Game implements Publisher, Subscriber{
         //isi dengan spell morph
         int morphCount = (int) (maxCard * MORPH_PERCENTAGE);
         CardDatabase morphDB = cf.getDatabase("Morph Spell");
+        System.out.println("morph");
         for(int i =0;i<morphCount;i++){
             int id = morphDB.getKeySet().get(random.nextInt(morphDB.getKeySet().size()));
             deck.addCard(morphDB.getCard(id));
         }
         //isi dengan spell potion
         int potionCount = (int) (maxCard * POTION_PERCENTAGE);
+        System.out.println("potion");
         CardDatabase potionDB = cf.getDatabase("Potion Spell");
         for(int i =0;i<potionCount;i++){
             int id = potionDB.getKeySet().get(random.nextInt(potionDB.getKeySet().size()));
@@ -71,6 +78,7 @@ public class Game implements Publisher, Subscriber{
         }
         //isi dengan spell swap
         int swapCount = (int) (maxCard * SWAP_PERCENTAGE);
+        System.out.println("swap");
         CardDatabase swapDB = cf.getDatabase("Swap Spell");
         for(int i =0;i<swapCount;i++){
             int id = swapDB.getKeySet().get(random.nextInt(swapDB.getKeySet().size()));
@@ -83,27 +91,38 @@ public class Game implements Publisher, Subscriber{
         String[] cardType = {"Character","Morph Spell","Potion Spell","Swap Spell"};
         while(totalCount<maxCard){
             CardDatabase db = cf.getDatabase(cardType[random.nextInt(cardType.length)]);
-            int id = random.nextInt(db.getKeySet().size());
+            int id = db.getKeySet().get(random.nextInt(db.getKeySet().size()));
             deck.addCard(db.getCard(id));
             totalCount++;
         }
         //kalo kelebihan gak ketambah otomatis
-        System.out.println("ehe");
+        System.out.println("asuuu");
       //  System.out.println(deck.drawCard());
         deck.shuffle();
+    }
+    public int getTurn(){
+        return turns;
+    }
+    public void setTurn(int turn){
+        turns = turn;
     }
     
     public void setup(){
         for(int i=0; i<2; i++) {
         	for(int j=0; j<3; j++) {
+          //      System.out.println("aaa "+i);
         		this.players[i].addCard(this.deck[i].drawCard());
         	} // di sini harusnya draw 3 kartu dulu
+          //  System.out.println("anying");
         }
         this.players[0].setHP(80);
         this.players[1].setHP(80);;// terus tiap player reset health
         
-        publish(new PlayerChangedEvent(this.cur_player));
+      //  publish(new PlayerChangedEvent(this.cur_player));
         // publish event playerchanged buat ngubah giliran player jadi giliran p1
+        //init GUI
+        Frame.getInstance().initPhase(this);
+
         stageController(this.phases[this.phase_id]);
         // terus pake stageController buat masuk fase draw
     }
@@ -118,13 +137,13 @@ public class Game implements Publisher, Subscriber{
     
     public void stageController(Phase phase){
         if(phase == Phase.DRAW){
-            this.draw();
+            drawPhase();
         }else if (phase == Phase.END){
             // end phase
         }
     }
     
-    public void draw() {
+    public void drawPhase() {
     	// manggil draw()
         // publish(new PhaseChangedEvent(this.phases[phase_id]));
       //  Card c1 = this.deck[cur_player].drawCard();
@@ -157,5 +176,8 @@ public class Game implements Publisher, Subscriber{
     @Override
     public void publish(Event event){
         this.channel.sendEvent(this, event);
+    }
+    public Deck getDeck(int idx){
+        return deck[idx];
     }
 }

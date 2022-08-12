@@ -13,10 +13,10 @@ public class CardDeckPanel extends JPanel {
     private int maxCard;
     public JLabel decklabel;
     public JLabel cardLeftLabel;
-    public CardDeckPanel(int currentCard,int maxCard) {
+    public CardDeckPanel() {
         this.setLayout(null);
-        this.currentCard = currentCard;
-        this.maxCard = maxCard;
+        this.currentCard = 0;
+        this.maxCard = 0;
         this.decklabel = new JLabel("Deck");
         decklabel.setFont(new Font("Default",Font.PLAIN,26));
         decklabel.setBounds(
@@ -38,7 +38,10 @@ public class CardDeckPanel extends JPanel {
         this.setBackground(new java.awt.Color(200, 200, 200));
         setBorder(GlobalVar.blackLineBorder);
     }
-
+    public void setMaxCard(int maxCard){
+        this.maxCard = maxCard;
+        this.cardLeftLabel.setText(this.currentCard+"/"+this.maxCard);
+    }
     public void updateDeck(int card){
         this.currentCard = card;
         this.cardLeftLabel.setText(this.currentCard+"/"+this.maxCard);

@@ -22,16 +22,24 @@ public class Deck {
         if(idx!=-1) {
             cards.remove(idx);
         }
+        System.out.println(cards.size());
     }
 
     public Card drawCard() {
         int idx = cards.size()-1;
         Card card = cards.get(idx);
+     //   System.out.println("ngedraw");
         removeCard(card);
         return card;
     }
 
     public void shuffle(){
         Collections.shuffle(cards);
+    }
+    public int getMaxSize(){
+        return MAX_SIZE;
+    }
+    public int getSize(){
+        return cards.size();
     }
 }

@@ -1,5 +1,6 @@
 package com.aetherwars.card.spell;
 
+import com.aetherwars.card.Card;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.SummonedCharacter;
 
@@ -60,5 +61,11 @@ public class PotionSpell extends Spell {
                 ? Math.min(target.getAttack() + this.getAttack(), target.getMaxAttack())
                 : Math.max(target.getAttack() + this.getAttack(), 0)
         ); */
+    }
+
+    @Override
+    public Card cloneCard() {
+        PotionSpell potion = new PotionSpell(id, name, mana, description, imagepath,attack,health,duration);
+        return potion;
     }
 }

@@ -1,5 +1,6 @@
 package com.aetherwars.card.spell;
 
+import com.aetherwars.card.Card;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.SummonedCharacter;
 
@@ -29,5 +30,11 @@ public class MorphSpell extends Spell {
         // Character newCharacter = search(databasekarakter, id)
         target.getBaseCard().setId(this.target_id);
         /* target.setCharacter(newCharacter); */
+    }
+
+    @Override
+    public Card cloneCard() {
+        MorphSpell morph = new MorphSpell(id, name, mana, description, imagepath,target_id);
+        return morph;
     }
 }

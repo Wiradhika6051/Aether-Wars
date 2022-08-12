@@ -11,7 +11,7 @@ import com.aetherwars.view.Frame;
 
 public class AetherWars{
   BoardController board;
-  BoardChannel channel;
+  BoardChannel channel=null;
   Player p1;
   Player p2;
   CardFactory cardFactory;
@@ -19,7 +19,6 @@ public class AetherWars{
   Frame main_frame;
 
   public AetherWars() {
-    board = new BoardController(channel);
     p1 = new Player("Steve");
     p2 = new Player("Alex");
     cardFactory=null;
@@ -39,10 +38,11 @@ public class AetherWars{
     game = new Game(p1,p2,null,cardFactory);
     main_frame = new Frame(false);
     channel = new BoardChannel(main_frame);
-    launch();
+    board = new BoardController(channel,main_frame);
   }
   void launch(){
     main_frame.setVisible(true);
+    System.out.println("egeee");
     game.setup();
   }
 }
