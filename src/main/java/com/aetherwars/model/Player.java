@@ -42,6 +42,8 @@ public class Player {
     public void setMaxMana(){
         this.maxMana++;
     }
+    public int getMana(){return this.mana;}
+    public int getMaxMana(){return this.maxMana;}
     public Character[] getBoardCharacter(){
         return this.onBoardCard;
     }

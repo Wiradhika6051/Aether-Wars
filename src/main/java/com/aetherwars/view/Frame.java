@@ -75,6 +75,9 @@ public class Frame extends javax.swing.JFrame {
         //update deck
         cardDeckPanel.setMaxCard(game.getDeck(game.getCurPlayer()).getMaxSize());
         cardDeckPanel.updateDeck(game.getDeck(game.getCurPlayer()).getSize());
+        //update mana label
+        showManaLabel.updateMaxMana(game.getPlayer(game.getCurPlayer()).getMaxMana());
+        showManaLabel.updateCurrentMana(game.getPlayer(game.getCurPlayer()).getMana());
     }
     public ProgressPanel getStateGUI(String phase){
         switch(phase){
