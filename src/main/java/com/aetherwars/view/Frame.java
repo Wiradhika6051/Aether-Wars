@@ -5,7 +5,6 @@
 package com.aetherwars.view;
 
 import com.aetherwars.GUI.Components.*;
-import com.aetherwars.Game;
 import com.aetherwars.card.Character.Type;
 import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
@@ -26,7 +25,6 @@ import static com.aetherwars.util.Utility.getFractionSize;
  * @author Fahmi
  */
 public class Frame extends javax.swing.JFrame {
-    private BoardController board_controller;
     private Dimension screenSize;
     private int screenWidth;
     private int screenHeight;
@@ -34,7 +32,6 @@ public class Frame extends javax.swing.JFrame {
     int turn;
     int cardNum;
     int CURCARD=20;
-    Game game;
 
     /**
      * Creates new form Frame
@@ -469,14 +466,7 @@ public class Frame extends javax.swing.JFrame {
     }
     // </editor-fold>//GEN-END:initComponents
     public void run() {
-        this.board_controller = board_controller;
-        this.game = game;
         this.setVisible(true);
-        //mulai game
-        mainloop();
-    }
-    void mainloop(){
-        game.setup();
     }
     /**
      * @param args the command line arguments

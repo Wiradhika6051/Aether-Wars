@@ -24,13 +24,14 @@ public class Game implements Publisher, Subscriber{
     private int cur_player;
     private EventChannel channel;
     private Deck deck[];
+
     Random random;
     CardFactory cf;
     
     public Game(Player p1, Player p2, EventChannel channel, CardFactory cf){
         this.cf = cf;
     	this.deck = new Deck[2];
-        this.random = new Random();
+        this.random = new Random(System.currentTimeMillis());
         //dapetin jumlah kartu yg dimasukkan (40-60 inclusive)
         int maxCard =  MIN_CARD + random.nextInt()%(MAX_CARD-MIN_CARD+1);
     	for(int i=0; i<2; i++) {
@@ -88,7 +89,8 @@ public class Game implements Publisher, Subscriber{
         }
         //kalo kelebihan gak ketambah otomatis
         System.out.println("ehe");
-        System.out.println(deck.drawCard());
+      //  System.out.println(deck.drawCard());
+        deck.shuffle();
     }
     
     public void setup(){
@@ -125,10 +127,10 @@ public class Game implements Publisher, Subscriber{
     public void draw() {
     	// manggil draw()
         // publish(new PhaseChangedEvent(this.phases[phase_id]));
-        Card c1 = this.deck[cur_player].drawCard();
-        Card c2 = this.deck[cur_player].drawCard();
-        Card c3 = this.deck[cur_player].drawCard();
-        publish(new EnterDrawPhaseEvent(c1, c2, c3));
+      //  Card c1 = this.deck[cur_player].drawCard();
+      //  Card c2 = this.deck[cur_player].drawCard();
+      //  Card c3 = this.deck[cur_player].drawCard();
+      //  publish(new EnterDrawPhaseEvent(c1, c2, c3));
     }
     
     public void endStage(){

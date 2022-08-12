@@ -4,7 +4,7 @@ plugins {
 
 apply plugin: 'application'
 
-mainClassName = 'com.aetherwars.AetherWars'
+mainClassName = 'com.aetherwars.Launcher'
 
 group 'com.aetherwars'
 version '1.0-SNAPSHOT'

@@ -10,12 +10,19 @@ import com.aetherwars.model.Player;
 import com.aetherwars.view.Frame;
 
 public class AetherWars{
-  public static void main(String[] args) {
-    BoardChannel channel = new BoardChannel();
-    BoardController board = new BoardController(channel);
-    Player p1 = new Player("Steve");
-    Player p2 = new Player("Alex");
-    CardFactory cardFactory=null;
+  BoardController board;
+  BoardChannel channel;
+  Player p1;
+  Player p2;
+  CardFactory cardFactory;
+  Game game;
+  Frame main_frame;
+
+  public AetherWars() {
+    board = new BoardController(channel);
+    p1 = new Player("Steve");
+    p2 = new Player("Alex");
+    cardFactory=null;
 
     try {
       cardFactory = GlobalInitializer.loadCards();
@@ -29,11 +36,13 @@ public class AetherWars{
     catch(Exception e){
       System.out.println("Failed to load cards: " + e);
     }
-    Game game = new Game(p1,p2,null,cardFactory);
-    Frame main_frame = new Frame(false);
+    game = new Game(p1,p2,null,cardFactory);
+    main_frame = new Frame(false);
+    channel = new BoardChannel(main_frame);
     launch();
   }
-  static void launch(){
-
+  void launch(){
+    main_frame.setVisible(true);
+    game.setup();
   }
 }
