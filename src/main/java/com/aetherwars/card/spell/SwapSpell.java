@@ -11,6 +11,7 @@ public class SwapSpell extends Spell {
     public SwapSpell(int id, String name, int mana, String description, String imagepath, int duration) {
         super(id, name, mana, description, imagepath);
         this.duration = duration;
+        this.stat = "ATK<->HP("+duration+")";
     }
 
     public int getDuration() {

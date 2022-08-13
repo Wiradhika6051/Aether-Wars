@@ -64,8 +64,8 @@ public class CardDescriptionPanel extends JPanel {
         addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent e) {
-                if(chara==null) {
-                    showDescription(new SummonedCharacter
+                if(chara!=null) {
+                  /*  showDescription(new SummonedCharacter
                             (new Character(
                                     1,
                                     "Enderman",
@@ -80,7 +80,8 @@ public class CardDescriptionPanel extends JPanel {
                             ),
                                     2
                             )
-                    );
+                    );*/
+                    showDescription(chara);
                 }
                 revalidate();
                 repaint();
@@ -89,8 +90,11 @@ public class CardDescriptionPanel extends JPanel {
             @Override
             public void mouseExited(MouseEvent e) {
                 chara=null;
-                remove(cardName);
-                remove(information);
+                try {
+                    remove(cardName);
+                    remove(information);
+                }
+                catch(Exception a){}
                 revalidate();
                 repaint();
             }

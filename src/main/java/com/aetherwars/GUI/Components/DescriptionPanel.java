@@ -25,7 +25,7 @@ public class DescriptionPanel extends JPanel {
                 getFractionSize(GlobalVar.getScreenHeight(), 6, 40)
         );
         setBorder(GlobalVar.blackLineBorder);
-        setText("<html><p>\"An enderman is a neutral mob found in all four dimensions. Endermen can teleport and pick up blocks.\"</p></html>");
+    //    setText("<html><p>\"An enderman is a neutral mob found in all four dimensions. Endermen can teleport and pick up blocks.\"</p></html>");
         setLayout(null);
         initMouseListener();
     }

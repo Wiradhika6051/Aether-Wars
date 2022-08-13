@@ -6,6 +6,7 @@ public abstract class Card{
     protected int mana;
     protected String description;
     protected String imagepath;
+    protected String stat;
 
     public Card(int id, String name, int mana, String description, String imagepath) {
         this.id = id;
@@ -56,6 +57,10 @@ public abstract class Card{
 
     public void setImagepath(String imagepath) {
         this.imagepath = imagepath;
+    }
+
+    public String getStat(){
+        return stat;
     }
 
 }

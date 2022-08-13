@@ -30,7 +30,11 @@ public class PlayerPicture extends JPanel {
         catch(Exception e){
             System.out.println(e);
         }
-      //  System.out.println("a+"+picture);
-  //      sprite = new JLabel(picture);
+    }
+    public void highlight(){
+        sprite.setBorder(BorderFactory.createLineBorder(Color.ORANGE,6));
+    }
+    public void dehightlight(){
+        sprite.setBorder(null);
     }
 }

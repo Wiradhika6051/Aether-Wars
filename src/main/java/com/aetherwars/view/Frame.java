@@ -6,6 +6,7 @@ package com.aetherwars.view;
 
 import com.aetherwars.GUI.Components.*;
 import com.aetherwars.Game;
+import com.aetherwars.card.Card;
 import com.aetherwars.card.Character.Type;
 import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
@@ -18,6 +19,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import static com.aetherwars.util.Utility.getFractionSize;
 
@@ -30,8 +32,10 @@ public class Frame extends javax.swing.JFrame {
     private int screenWidth;
     private int screenHeight;
     public static Frame Instance;
+    HandCardLabel[] deck;
+    PlayerPicture[] players;
+
    // int turn;
-    int cardNum;
     int CURCARD=20;
 
     /**
@@ -40,7 +44,6 @@ public class Frame extends javax.swing.JFrame {
     private boolean isDebugMode;//jika true, maka fitur debug aktif
     public Frame(boolean isDebugMode) {
         setTitle("Aether Wars");
-        cardNum = 3;
     //    turn = 1;
         screenWidth = GlobalVar.getScreenWidth();
         screenHeight = GlobalVar.getScreenHeight();
@@ -48,10 +51,28 @@ public class Frame extends javax.swing.JFrame {
         System.out.println(isDebugMode);
         this.setSize(new Dimension((int)(this.screenWidth),(int)(this.screenHeight)));
         Frame.Instance = this;
+        players = new PlayerPicture[2];
         this.setLayout(null);
         init();
+        initPlayer();
         initKeyListener();
+        initDeck();
         setVisible(true);
+    }
+    void initPlayer(){
+        players[0] = player1Picture;
+        players[1] = player2Picture;
+    }
+    void initDeck(){
+        deck = new HandCardLabel[5];
+        deck[0]=handCard1;
+        deck[1]=handCard2;
+        deck[2]=handCard3;
+        deck[3]=handCard4;
+        deck[4]=handCard5;
+    }
+    public HandCardLabel[] getDeck(){
+        return deck;
     }
     public static Frame getInstance(){
         return Instance;
@@ -78,6 +99,32 @@ public class Frame extends javax.swing.JFrame {
         //update mana label
         showManaLabel.updateMaxMana(game.getPlayer(game.getCurPlayer()).getMaxMana());
         showManaLabel.updateCurrentMana(game.getPlayer(game.getCurPlayer()).getMana());
+        //isi kartu
+        Card[] handCard = game.getPlayer(game.getCurPlayer()).getHandCard();
+        for(int i =0;i<handCard.length;i++){
+            deck[i].setCharacter(handCard[i].getMana(),handCard[i].getStat(),"/com/aetherwars/"+handCard[i].getImagepath());
+        }
+        //render kartu
+        resetDeckCard();
+        //reset highlight
+        for(PlayerPicture pp:players){
+            pp.dehightlight();
+        }
+        players[game.getCurPlayer()].highlight();
+    }
+    void resetDeckCard(){
+        //reset semua kartu
+        for(HandCardLabel card:deck){
+            remove(card);
+        }
+        //isi ulang
+        for(HandCardLabel card:deck){
+            if(card.isRendered()){
+                add(card);
+            }
+        }
+        revalidate();
+        repaint();
     }
     public ProgressPanel getStateGUI(String phase){
         switch(phase){
@@ -126,11 +173,11 @@ public class Frame extends javax.swing.JFrame {
         pnl_attack_phase = new ProgressPanel("ATTACK");
         pnl_end_phase = new ProgressPanel("END");
         nextPhaseButton = new NextButton();
-        handCard1 = new HandCardLabel(2,"card1_desc","/com/aetherwars/card/image/character/Creeper.png");
-        handCard2 = new HandCardLabel(3,"card2_desc","/com/aetherwars/card/image/character/Skeleton.png");
-        handCard3 = new HandCardLabel(4,"card3_desc","/com/aetherwars/card/image/spell/morph/Sheepify.png");
-        handCard4 = new HandCardLabel(5,"card4_desc","/com/aetherwars/card/image/spell/potion/GWS.png");
-        handCard5 = new HandCardLabel(6,"card5_desc","/com/aetherwars/card/image/spell/swap/Swab Test.png");
+        handCard1 = new HandCardLabel();
+        handCard2 = new HandCardLabel();
+        handCard3 = new HandCardLabel();
+        handCard4 = new HandCardLabel();
+        handCard5 = new HandCardLabel();
         pnl_card_preview = new CardPreviewPanel();
      //   pnl_card_description = new CardDescriptionPanel(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
         pnl_card_description = new CardDescriptionPanel();
@@ -327,7 +374,6 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
         );
-        if(cardNum>0)add(handCard1);
         //slot 2
         handCard2.setBounds(
                 getFractionSize(GlobalVar.getScreenWidth(), 6.0313, 60),
@@ -335,7 +381,6 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
         );
-        if(cardNum>1)add(handCard2);
         //slot 3
         handCard3.setBounds(
                 getFractionSize(GlobalVar.getScreenWidth(), 11.07, 60),
@@ -343,7 +388,6 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
         );
-        if(cardNum>2)add(handCard3);
         //slot4
         handCard4.setBounds(
                 getFractionSize(GlobalVar.getScreenWidth(), 16.1, 60),
@@ -351,7 +395,6 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
         );
-        if(cardNum>3)add(handCard4);
         //slot5
         handCard5.setBounds(
                 getFractionSize(GlobalVar.getScreenWidth(), 21.14, 60),
@@ -359,7 +402,6 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(), 5, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 9, 40)
         );
-        if(cardNum>4)add(handCard5);
         //preview kartu
         pnl_card_preview.setBounds(
                 getFractionSize(GlobalVar.getScreenWidth(), 29, 60),
@@ -449,11 +491,7 @@ public class Frame extends javax.swing.JFrame {
         add(cardDeckPanel);
         add(descriptionPanel);
         add(pnl_card_description);
-        if(cardNum>4) add(handCard5);
-        if(cardNum>3)add(handCard4);
-        if(cardNum>2)add(handCard3);
-        if(cardNum>1)add(handCard2);
-        if(cardNum>0)add(handCard1);
+        resetDeckCard();
         add(pnl_card_preview);
         add(nextPhaseButton);
         add(pnl_end_phase);

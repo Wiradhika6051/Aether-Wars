@@ -17,6 +17,7 @@ public class Character extends Card implements Summonable {
     this.attackUp = attackUp;
     this.hp_0 = health;
     this.healthUp = healthUp;
+    this.stat = "ATK "+atk_0+"/HP "+(int)hp_0;
   }
   public Type getType(){
     return this.type;

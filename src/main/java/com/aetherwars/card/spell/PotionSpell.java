@@ -14,6 +14,7 @@ public class PotionSpell extends Spell {
         this.attack = attack;
         this.health = health;
         this.duration = duration;
+        this.stat = (attack!=0?("ATK"+(attack>0?("+"+attack):attack)):"")+(attack!=0&&health!=0?"/":"")+(health!=0?("HP"+(health>0?("+"+health):health)):"")+"("+duration+")";
     }
 
     public int getAttack() {

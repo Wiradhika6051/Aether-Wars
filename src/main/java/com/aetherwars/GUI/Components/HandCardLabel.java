@@ -23,14 +23,19 @@ public class HandCardLabel extends JPanel {
     private JLabel statLabel;
     private ImageIcon picture;
     boolean isEnabled;
+    boolean isRender;
 
-    public HandCardLabel(int manacost,String description,String imagePath){
+    public HandCardLabel(){
         isEnabled = false;
+        isRender = false;
         this.setLayout(null);
         setBorder(GlobalVar.blackLineBorder_2);
-        setCharacter(manacost,description,imagePath);
         this.setBackground(new java.awt.Color(200, 200, 200,60));
         initMouseAdapter();
+    }
+    public boolean isRendered(){
+        //menghasilkan true bila udah ditambahin chara
+        return isRender;
     }
     public void setEnabled(boolean isSelected){
         this.isEnabled=isSelected;
@@ -46,8 +51,10 @@ public class HandCardLabel extends JPanel {
         if(picture!=null){
             removeAll();
         }
+        isRender=true;
         //gambar kartu
         try {
+            System.out.println(imagePath);
             URL path = getClass().getResource(imagePath);
             BufferedImage original_image = ImageIO.read(new File(path.toURI()));
             picture = new ImageIcon(original_image);
@@ -73,7 +80,8 @@ public class HandCardLabel extends JPanel {
         this.manaCostLabel = new JLabel("MANA "+manacost);
         manaCostLabel.setFont(new Font("Default",Font.PLAIN,18));
         manaCostLabel.setBounds(
-                getFractionSize(GlobalVar.getScreenWidth(), 1.6, 60),
+       //         getFractionSize(GlobalVar.getScreenWidth(), 1.6, 60),
+                getFractionSize(GlobalVar.getScreenWidth(), 0.4, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 5.65, 40),
                 getFractionSize(GlobalVar.getScreenWidth(), 4, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 1.5, 40)
@@ -82,7 +90,8 @@ public class HandCardLabel extends JPanel {
         this.statLabel = new JLabel(description);
         statLabel.setFont(new Font("Default",Font.PLAIN,18));
         statLabel.setBounds(
-                getFractionSize(GlobalVar.getScreenWidth(), 1.2 , 60),
+         //       getFractionSize(GlobalVar.getScreenWidth(), 1.2 , 60),
+                getFractionSize(GlobalVar.getScreenWidth(), 0.4, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 6.8, 40),
                 getFractionSize(GlobalVar.getScreenWidth(), 4, 60),
                 getFractionSize(GlobalVar.getScreenHeight(), 1.5, 40)
@@ -90,6 +99,9 @@ public class HandCardLabel extends JPanel {
         add(statLabel);
         revalidate();
         repaint();
+    }
+    public void removeCard(){
+        isRender = false;
     }
     void initMouseAdapter(){
         addMouseListener(new MouseAdapter() {

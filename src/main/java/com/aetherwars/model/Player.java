@@ -93,4 +93,9 @@ public class Player {
     public boolean getIsDeckEmpty() {
     	return this.isDeckEmpty;
     }
+    public Card[] getHandCard(){
+        Card[] cards = new Card[handCard.size()];
+        handCard.toArray(cards);
+        return cards;
+    }
 }

@@ -10,6 +10,7 @@ public class MorphSpell extends Spell {
     public MorphSpell(int id, String name, int mana, String description, String imagepath, final int target_id) {
         super(id, name, mana, description, imagepath);
         this.target_id = target_id;
+        this.stat = "MORPH";
     }
 
     public int getTargetId() {
