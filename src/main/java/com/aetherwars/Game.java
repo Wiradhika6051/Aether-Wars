@@ -26,6 +26,8 @@ public class Game implements Publisher, Subscriber{
     private EventChannel channel;
     private Deck deck[];
 
+    private static Game INSTANCE;
+
     Random random;
     CardFactory cf;
     
@@ -48,8 +50,11 @@ public class Game implements Publisher, Subscriber{
         this.channel = channel;
         this.cur_player = 0;
     }
-    public Game getGameManager(){
-        return this;
+    public Phase getCurPhase(){
+        return phases[phase_id];
+    }
+    public static Game getGameManager(){
+        return INSTANCE;
     }
     void populateDeck(Deck deck,int maxCard){
         //isi dengan chara
@@ -121,7 +126,7 @@ public class Game implements Publisher, Subscriber{
       //  publish(new PlayerChangedEvent(this.cur_player));
         // publish event playerchanged buat ngubah giliran player jadi giliran p1
         //init GUI
-        Frame.getInstance().initPhase(this);
+        Frame.getInstance().initPhase();
 
         stageController(this.phases[this.phase_id]);
         // terus pake stageController buat masuk fase draw

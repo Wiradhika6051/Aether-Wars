@@ -36,7 +36,7 @@ public class AetherWars{
       System.out.println("Failed to load cards: " + e);
     }
     game = new Game(p1,p2,null,cardFactory);
-    main_frame = new Frame(false);
+    main_frame = new Frame(false,game);
     channel = new BoardChannel(main_frame);
     board = new BoardController(channel,main_frame);
   }

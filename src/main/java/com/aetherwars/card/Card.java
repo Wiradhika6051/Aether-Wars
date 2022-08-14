@@ -52,7 +52,7 @@ public abstract class Card{
     }
 
     public String getImagepath() {
-        return imagepath;
+        return "/com/aetherwars/"+imagepath;
     }
 
     public void setImagepath(String imagepath) {

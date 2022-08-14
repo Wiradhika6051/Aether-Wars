@@ -13,6 +13,7 @@ import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.Character.Type;
+import com.aetherwars.model.Phase;
 import com.aetherwars.util.GlobalVar;
 import com.aetherwars.util.Utility;
 
@@ -36,6 +37,8 @@ public class Frame extends javax.swing.JFrame {
     HandCardLabel[] deck;
     PlayerPicture[] players;
     DrawPhaseScreen drawPhaseScreen;
+    HandCardLabel[] drawableCards;
+    Game game;
 
    // int turn;
     int CURCARD=20;
@@ -44,7 +47,8 @@ public class Frame extends javax.swing.JFrame {
      * Creates new form Frame
      */
     private boolean isDebugMode;//jika true, maka fitur debug aktif
-    public Frame(boolean isDebugMode) {
+    public Frame(boolean isDebugMode,Game game) {
+        this.game = game;
         setTitle("Aether Wars");
     //    turn = 1;
         screenWidth = GlobalVar.getScreenWidth();
@@ -64,6 +68,9 @@ public class Frame extends javax.swing.JFrame {
     }
     public void drawPhase(){
     //   removeAll();
+        for(int i=0;i<drawableCards.length;i++){
+            add(drawableCards[i]);
+        }
         add(drawPhaseScreen);
         renderComponents(getDebugMode());
            for(Component c:this.getContentPane().getComponents()){
@@ -83,6 +90,18 @@ public class Frame extends javax.swing.JFrame {
                 getFractionSize(GlobalVar.getScreenWidth(),60,60),
                 getFractionSize(GlobalVar.getScreenHeight(),40,40)
         );
+        drawableCards = new HandCardLabel[3];
+        for(int i=0;i<drawableCards.length;i++){
+            drawableCards[i] = new HandCardLabel(true);
+            drawableCards[i].setBounds(
+                    getFractionSize(GlobalVar.getScreenWidth(),10*(i+1)+5*i,60),
+                    getFractionSize(GlobalVar.getScreenHeight(),10,40),
+                    getFractionSize(GlobalVar.getScreenWidth(),10,60),
+                    getFractionSize(GlobalVar.getScreenHeight(),18,40)
+            );
+            drawableCards[i].setCharacter(game.getDeck(game.getCurPlayer()).drawCard());
+        }
+
     }
 
     void initPlayer(){
@@ -113,7 +132,7 @@ public class Frame extends javax.swing.JFrame {
             pnl_card_preview.showSprite(null);
         }*/
     }
-    public void initPhase(Game game){
+    public void initPhase(){
         //update turn
         pnl_turns.updateTurn(game.getTurn());
         //update healthbar
@@ -128,7 +147,7 @@ public class Frame extends javax.swing.JFrame {
         //isi kartu
         Card[] handCard = game.getPlayer(game.getCurPlayer()).getHandCard();
         for(int i =0;i<handCard.length;i++){
-            deck[i].setCharacter(handCard[i].getMana(),handCard[i].getStat(),"/com/aetherwars/"+handCard[i].getImagepath());
+            deck[i].setCharacter(handCard[i]);
         }
         //render kartu
         resetDeckCard();
@@ -199,11 +218,11 @@ public class Frame extends javax.swing.JFrame {
         pnl_attack_phase = new ProgressPanel("ATTACK");
         pnl_end_phase = new ProgressPanel("END");
         nextPhaseButton = new NextButton();
-        handCard1 = new HandCardLabel();
-        handCard2 = new HandCardLabel();
-        handCard3 = new HandCardLabel();
-        handCard4 = new HandCardLabel();
-        handCard5 = new HandCardLabel();
+        handCard1 = new HandCardLabel(false);
+        handCard2 = new HandCardLabel(false);
+        handCard3 = new HandCardLabel(false);
+        handCard4 = new HandCardLabel(false);
+        handCard5 = new HandCardLabel(false);
         pnl_card_preview = new CardPreviewPanel();
      //   pnl_card_description = new CardDescriptionPanel(new SummonedCharacter(new Character(1,"Enderman",100,"Penghuni The End","/com/aetherwars/card/image/character/Enderman.png", com.aetherwars.card.Character.Type.END,10,2,12,2),2));
         pnl_card_description = new CardDescriptionPanel();
@@ -509,9 +528,19 @@ public class Frame extends javax.swing.JFrame {
             }
         });
     }
+    public void reset(boolean debug){
+        removeAll();
+        renderComponents(debug);
+    }
     public void renderComponents(boolean debugMode){
         if(debugMode){
             this.add(grid);
+        }
+        if(Phase.DRAW==game.getCurPhase()){
+            for(int i=0;i<drawableCards.length;i++){
+                add(drawableCards[i]);
+            }
+            add(drawPhaseScreen);
         }
         add(showManaLabel);
         add(cardDeckPanel);
