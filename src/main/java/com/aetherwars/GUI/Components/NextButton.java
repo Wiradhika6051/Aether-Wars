@@ -7,12 +7,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import com.aetherwars.GUI.Selectable;
 import com.aetherwars.model.Phase;
 import com.aetherwars.view.Frame;
 
-public class NextButton extends JButton {
+public class NextButton extends JButton implements Selectable {
     Phase curState;
+    boolean isSelectable;
     public NextButton() {
+        isSelectable = true;
         curState = Phase.DRAW;
         setText(">>");
         setFocusable(false);
@@ -21,11 +24,13 @@ public class NextButton extends JButton {
         addMouseListener(new MouseAdapter(){
             @Override
             public void mousePressed(MouseEvent e) {
+                if(!isSelectable)return;
                 setForeground(Color.BLACK);
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                if(!isSelectable)return;
                 setBackground(new java.awt.Color(0, 0, 0));
                 setForeground(new java.awt.Color(225, 225, 225));
             }
@@ -61,5 +66,11 @@ public class NextButton extends JButton {
 
         );
 
+    }
+
+    @Override
+    public void setSelectability(boolean selectability) {
+        setEnabled(selectability);
+        isSelectable = selectability;
     }
 }

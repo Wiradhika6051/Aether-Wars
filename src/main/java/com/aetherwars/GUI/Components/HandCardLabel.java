@@ -1,5 +1,6 @@
 package com.aetherwars.GUI.Components;
 
+import com.aetherwars.GUI.Selectable;
 import com.aetherwars.util.GlobalVar;
 import com.aetherwars.view.Frame;
 
@@ -17,17 +18,19 @@ import java.net.URLEncoder;
 
 import static com.aetherwars.util.Utility.getFractionSize;
 
-public class HandCardLabel extends JPanel {
+public class HandCardLabel extends JPanel implements Selectable {
     private JLabel CardImage;
     private JLabel manaCostLabel;
     private JLabel statLabel;
     private ImageIcon picture;
     boolean isEnabled;
     boolean isRender;
+    boolean isSelectable;
 
     public HandCardLabel(){
         isEnabled = false;
         isRender = false;
+        isSelectable = true;
         this.setLayout(null);
         setBorder(GlobalVar.blackLineBorder_2);
         this.setBackground(new java.awt.Color(200, 200, 200,60));
@@ -100,6 +103,12 @@ public class HandCardLabel extends JPanel {
         revalidate();
         repaint();
     }
+
+    @Override
+    public void setSelectability(boolean selectability) {
+        isSelectable = selectability;
+    }
+
     public void removeCard(){
         isRender = false;
     }
@@ -107,6 +116,7 @@ public class HandCardLabel extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
+                if(!isSelectable)return;
                 isEnabled = !isEnabled;
                 setEnabled(isEnabled);
                 com.aetherwars.view.Frame.getInstance().getContentPane().removeAll();

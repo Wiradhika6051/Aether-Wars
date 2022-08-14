@@ -150,6 +150,7 @@ public class Game implements Publisher, Subscriber{
       //  Card c2 = this.deck[cur_player].drawCard();
       //  Card c3 = this.deck[cur_player].drawCard();
       //  publish(new EnterDrawPhaseEvent(c1, c2, c3));
+        Frame.getInstance().drawPhase();
     }
     
     public void endStage(){

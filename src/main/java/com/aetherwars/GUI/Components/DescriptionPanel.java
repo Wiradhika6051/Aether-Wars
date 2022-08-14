@@ -1,5 +1,6 @@
 package com.aetherwars.GUI.Components;
 
+import com.aetherwars.GUI.Selectable;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.util.GlobalVar;
@@ -12,9 +13,11 @@ import java.awt.event.MouseEvent;
 
 import static com.aetherwars.util.Utility.getFractionSize;
 
-public class DescriptionPanel extends JPanel {
+public class DescriptionPanel extends JPanel implements Selectable {
     JLabel description;
+    boolean isSelectable;
     public DescriptionPanel(){
+        isSelectable = true;
         this.setBackground(new java.awt.Color(200, 200, 200));
         description = new JLabel("");
         description.setFont(new Font("Default",Font.ITALIC,20));
@@ -36,6 +39,7 @@ public class DescriptionPanel extends JPanel {
         addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent e) {
+                if(!isSelectable)return;
                 add(description);
                 revalidate();
                 repaint();
@@ -43,10 +47,16 @@ public class DescriptionPanel extends JPanel {
 
             @Override
             public void mouseExited(MouseEvent e) {
+                if(!isSelectable)return;
                 remove(description);
                 revalidate();
                 repaint();
             }
         });
+    }
+
+    @Override
+    public void setSelectability(boolean selectability) {
+        isSelectable = selectability;
     }
 }

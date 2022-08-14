@@ -1,5 +1,6 @@
 package com.aetherwars.GUI.Components;
 
+import com.aetherwars.GUI.Selectable;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.util.GlobalVar;
@@ -17,10 +18,11 @@ import java.net.URL;
 
 import static com.aetherwars.util.Utility.getFractionSize;
 
-public class PlayerDeckCard extends JPanel {
+public class PlayerDeckCard extends JPanel implements Selectable {
     private SummonedCharacter chara;
     public boolean isSelected;
     private String deckNumber;
+    boolean isSelectable;
   //  public javax.swing.GroupLayout cardDescriptionLayout;
     //kalau gak ada kartu
     private JLabel deckLabel;
@@ -37,12 +39,19 @@ public class PlayerDeckCard extends JPanel {
     private JPanel attackPanel;
     private JPanel healthPanel;
     public PlayerDeckCard(String deckNumber){
+        isSelectable = true;
         setLayout(null);
         this.isSelected=false;
         this.deckNumber = deckNumber;
         initializeDeckCard();
         initMouseListener();
     }
+
+    @Override
+    public void setSelectability(boolean selectability) {
+        isSelectable = selectability;
+    }
+
     public void initializeDeckCard(){
         this.deckLabel = new JLabel(deckNumber);
         this.deckLabel.setFont(new Font("Serif", Font.PLAIN, 43));
@@ -218,12 +227,14 @@ public class PlayerDeckCard extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
          //       System.out.println("ehe"+isSelected);
-                isSelected = !isSelected;
-                setSelected(isSelected);
-                Frame.getInstance().getContentPane().removeAll();
-                Frame.getInstance().renderComponents(Frame.getInstance().getDebugMode());
-                Frame.getInstance().revalidate();
-                Frame.getInstance().repaint();
+                if(isSelectable) {
+                    isSelected = !isSelected;
+                    setSelected(isSelected);
+                    Frame.getInstance().getContentPane().removeAll();
+                    Frame.getInstance().renderComponents(Frame.getInstance().getDebugMode());
+                    Frame.getInstance().revalidate();
+                    Frame.getInstance().repaint();
+                }
             }
         });
     }

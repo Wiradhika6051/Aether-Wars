@@ -8,20 +8,24 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
+
+import com.aetherwars.GUI.Selectable;
 import com.aetherwars.card.Character.Character;
 import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.util.GlobalVar;
 
 import static com.aetherwars.util.Utility.getFractionSize;
 
-public class CardDescriptionPanel extends JPanel {
+public class CardDescriptionPanel extends JPanel  implements Selectable{
     private JLabel information;
     private JLabel cardName;
     SummonedCharacter chara;
+    boolean isSelectable;
   // private JLabel description;
   //  public JSeparator separator;
 
     public CardDescriptionPanel(){
+        isSelectable = true;
         this.setLayout(null);
         chara = null;
      //   this.description = new JLabel("<html><p>""+chara.getBaseCard().getDescription()+"\"</p></html>");
@@ -31,6 +35,8 @@ public class CardDescriptionPanel extends JPanel {
         setBorder(GlobalVar.blackLineBorder);
         initMouseListener();
     }
+
+
     public void showDescription(SummonedCharacter chara){
         this.chara = chara;
         if(this.chara!=null){
@@ -64,6 +70,7 @@ public class CardDescriptionPanel extends JPanel {
         addMouseListener(new MouseAdapter(){
             @Override
             public void mouseEntered(MouseEvent e) {
+                if(!isSelectable)return;
                 if(chara!=null) {
                   /*  showDescription(new SummonedCharacter
                             (new Character(
@@ -89,6 +96,7 @@ public class CardDescriptionPanel extends JPanel {
 
             @Override
             public void mouseExited(MouseEvent e) {
+                if(!isSelectable)return;
                 chara=null;
                 try {
                     remove(cardName);
@@ -99,5 +107,10 @@ public class CardDescriptionPanel extends JPanel {
                 repaint();
             }
         });
+    }
+
+    @Override
+    public void setSelectability(boolean selectability) {
+        isSelectable = selectability;
     }
 }

@@ -5,6 +5,7 @@
 package com.aetherwars.view;
 
 import com.aetherwars.GUI.Components.*;
+import com.aetherwars.GUI.Selectable;
 import com.aetherwars.Game;
 import com.aetherwars.card.Card;
 import com.aetherwars.card.Character.Type;
@@ -34,6 +35,7 @@ public class Frame extends javax.swing.JFrame {
     public static Frame Instance;
     HandCardLabel[] deck;
     PlayerPicture[] players;
+    DrawPhaseScreen drawPhaseScreen;
 
    // int turn;
     int CURCARD=20;
@@ -57,8 +59,32 @@ public class Frame extends javax.swing.JFrame {
         initPlayer();
         initKeyListener();
         initDeck();
+        initdrawPhaseScreen();
         setVisible(true);
     }
+    public void drawPhase(){
+    //   removeAll();
+        add(drawPhaseScreen);
+        renderComponents(getDebugMode());
+           for(Component c:this.getContentPane().getComponents()){
+               if(Selectable.class.isInstance(c)){
+                   Selectable comp = (Selectable)c;
+                   comp.setSelectability(false);
+               }
+           }
+        revalidate();
+        repaint();
+    }
+    void initdrawPhaseScreen(){
+        drawPhaseScreen = new DrawPhaseScreen();
+        drawPhaseScreen.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),0,60),
+                getFractionSize(GlobalVar.getScreenHeight(),0,40),
+                getFractionSize(GlobalVar.getScreenWidth(),60,60),
+                getFractionSize(GlobalVar.getScreenHeight(),40,40)
+        );
+    }
+
     void initPlayer(){
         players[0] = player1Picture;
         players[1] = player2Picture;
