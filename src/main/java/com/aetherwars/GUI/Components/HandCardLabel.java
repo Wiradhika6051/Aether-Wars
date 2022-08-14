@@ -29,9 +29,11 @@ public class HandCardLabel extends JPanel implements Selectable {
     boolean isRender;
     boolean isSelectable;
     boolean isDrawable;
+    boolean isSelected;//udah dipilih kah buat dimasukkin
     Card card;
 
     public HandCardLabel(boolean isDrawable){
+        isSelected = false;
         this.isDrawable = isDrawable;
         isEnabled = false;
         isRender = false;
@@ -153,8 +155,9 @@ public class HandCardLabel extends JPanel implements Selectable {
     public void setSelectability(boolean selectability) {
         isSelectable = selectability;
     }
-    public void addToDeck(Card card){
+    public void addToDeck(){
         Game.getGameManager().getPlayer(Game.getGameManager().getCurPlayer()).addCard(card);
+        Frame.getInstance().reset(Frame.getInstance().getDebugMode());
     }
 
     public void removeCard(){
@@ -167,8 +170,14 @@ public class HandCardLabel extends JPanel implements Selectable {
                 if(!isSelectable && !isDrawable)return;
                 isEnabled = !isEnabled;
                 setEnabled(isEnabled);
-                if(isDrawable && card!=null){
-                    addToDeck(card);
+                if(isDrawable){
+                    if(!isSelected) {
+                        isSelected = true;
+                    }
+                    else{
+                        addToDeck();
+                        isSelected = false;
+                    }
                 }
                 com.aetherwars.view.Frame.getInstance().getContentPane().removeAll();
                 com.aetherwars.view.Frame.getInstance().renderComponents(com.aetherwars.view.Frame.getInstance().getDebugMode());

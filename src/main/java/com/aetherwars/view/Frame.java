@@ -163,9 +163,12 @@ public class Frame extends javax.swing.JFrame {
             remove(card);
         }
         //isi ulang
+        int i=0;
         for(HandCardLabel card:deck){
             if(card.isRendered()){
                 add(card);
+                System.out.println(i);
+                i++;
             }
         }
         revalidate();
@@ -529,8 +532,11 @@ public class Frame extends javax.swing.JFrame {
         });
     }
     public void reset(boolean debug){
-        removeAll();
-        renderComponents(debug);
+        //isi kartu
+        Card[] handCard = game.getPlayer(game.getCurPlayer()).getHandCard();
+        for(int i =0;i<handCard.length;i++){
+            deck[i].setCharacter(handCard[i]);
+        }
     }
     public void renderComponents(boolean debugMode){
         if(debugMode){
@@ -547,6 +553,7 @@ public class Frame extends javax.swing.JFrame {
         add(descriptionPanel);
         add(pnl_card_description);
         resetDeckCard();
+        System.out.println("eheeee");
         add(pnl_card_preview);
         add(nextPhaseButton);
         add(pnl_end_phase);

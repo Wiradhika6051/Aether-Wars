@@ -49,6 +49,7 @@ public class Game implements Publisher, Subscriber{
         this.players[1] = p2;
         this.channel = channel;
         this.cur_player = 0;
+        INSTANCE = this;
     }
     public Phase getCurPhase(){
         return phases[phase_id];
