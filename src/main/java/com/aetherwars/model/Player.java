@@ -55,6 +55,7 @@ public class Player {
     }
     public void addCard(Card card){
         //assume udah dihandle controller
+
         if(this.handCard.size()<5){
             this.handCard.add(card);
         }
@@ -98,4 +99,8 @@ public class Player {
         handCard.toArray(cards);
         return cards;
     }
+    public int getHandCardSize(){
+        return handCard.size();
+    }
+
 }

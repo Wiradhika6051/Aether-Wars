@@ -157,7 +157,9 @@ public class HandCardLabel extends JPanel implements Selectable {
     }
     public void addToDeck(){
         Game.getGameManager().getPlayer(Game.getGameManager().getCurPlayer()).addCard(card);
+        int idx = Game.getGameManager().getPlayer(Game.getGameManager().getCurPlayer()).getHandCardSize()-1;
         Frame.getInstance().reset(Frame.getInstance().getDebugMode());
+        Frame.getInstance().clickHandDeck(idx);
     }
 
     public void removeCard(){

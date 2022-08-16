@@ -580,6 +580,9 @@ public class Frame extends javax.swing.JFrame {
             deck[i].setCharacter(handCard[i]);
         }
     }
+    public void clickHandDeck(int idx){
+        deck[idx].setEnabled(true);
+    }
     public void renderComponents(boolean debugMode){
         if(debugMode){
             this.add(grid);
