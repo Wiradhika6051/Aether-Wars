@@ -66,19 +66,42 @@ public class Frame extends javax.swing.JFrame {
         initdrawPhaseScreen();
         setVisible(true);
     }
-    public void drawPhase(){
-    //   removeAll();
-        for(int i=0;i<drawableCards.length;i++){
-            add(drawableCards[i]);
+    public void renderDrawScreen(boolean isEnd){
+        if(isEnd){
+            for (int i = 0; i < drawableCards.length; i++) {
+                remove(drawableCards[i]);
+            }
+            remove(drawPhaseScreen);
         }
-        add(drawPhaseScreen);
-        renderComponents(getDebugMode());
-           for(Component c:this.getContentPane().getComponents()){
-               if(Selectable.class.isInstance(c)){
-                   Selectable comp = (Selectable)c;
-                   comp.setSelectability(false);
-               }
-           }
+        else{
+            for (int i = 0; i < drawableCards.length; i++) {
+                add(drawableCards[i]);
+            }
+            add(drawPhaseScreen);
+        }
+    }
+    public void drawPhase(boolean isEnd){
+    //   removeAll();
+        System.out.println("eheee123e3");
+        renderDrawScreen(isEnd);
+        if(isEnd){
+            for (Component c : this.getContentPane().getComponents()) {
+                if (Selectable.class.isInstance(c)) {
+                    Selectable comp = (Selectable) c;
+                    comp.setSelectability(true);
+                }
+            }
+        }
+        else {
+            renderComponents(getDebugMode());
+            for (Component c : this.getContentPane().getComponents()) {
+                if (Selectable.class.isInstance(c)) {
+                    Selectable comp = (Selectable) c;
+                    comp.setSelectability(false);
+                }
+            }
+        }
+        System.out.println("ejhfreifr");
         revalidate();
         repaint();
     }
@@ -543,10 +566,7 @@ public class Frame extends javax.swing.JFrame {
             this.add(grid);
         }
         if(Phase.DRAW==game.getCurPhase()){
-            for(int i=0;i<drawableCards.length;i++){
-                add(drawableCards[i]);
-            }
-            add(drawPhaseScreen);
+            renderDrawScreen(game.getDrawPhaseEndFlag());
         }
         add(showManaLabel);
         add(cardDeckPanel);

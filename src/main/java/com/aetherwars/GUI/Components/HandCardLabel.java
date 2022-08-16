@@ -177,6 +177,9 @@ public class HandCardLabel extends JPanel implements Selectable {
                     else{
                         addToDeck();
                         isSelected = false;
+                        Game.getGameManager().setDrawPhaseEndFlag(true);
+                        com.aetherwars.view.Frame.getInstance().drawPhase(true);
+                        Frame.getInstance().renderComponents(Frame.getInstance().getDebugMode());
                     }
                 }
                 com.aetherwars.view.Frame.getInstance().getContentPane().removeAll();

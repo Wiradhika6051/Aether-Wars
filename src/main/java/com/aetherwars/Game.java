@@ -18,6 +18,7 @@ public class Game implements Publisher, Subscriber{
     private final float POTION_PERCENTAGE = 0.35f;
     private final float SWAP_PERCENTAGE = 0.15f;
 
+
     private Player players[];
     private int turns;
     private int phase_id = 0;
@@ -30,6 +31,7 @@ public class Game implements Publisher, Subscriber{
 
     Random random;
     CardFactory cf;
+    boolean isDrawPhaseEnd;//bernilai true jika udah milih kartu
     
     public Game(Player p1, Player p2, EventChannel channel, CardFactory cf){
         turns = 1;
@@ -52,6 +54,7 @@ public class Game implements Publisher, Subscriber{
         INSTANCE = this;
     }
     public Phase getCurPhase(){
+        System.out.println(phase_id+"aaaa");
         return phases[phase_id];
     }
     public static Game getGameManager(){
@@ -143,6 +146,7 @@ public class Game implements Publisher, Subscriber{
     
     public void stageController(Phase phase){
         if(phase == Phase.DRAW){
+            System.out.println("asuscheofre");
             drawPhase();
         }else if (phase == Phase.END){
             // end phase
@@ -156,9 +160,15 @@ public class Game implements Publisher, Subscriber{
       //  Card c2 = this.deck[cur_player].drawCard();
       //  Card c3 = this.deck[cur_player].drawCard();
       //  publish(new EnterDrawPhaseEvent(c1, c2, c3));
-        Frame.getInstance().drawPhase();
+        isDrawPhaseEnd = false;
+        Frame.getInstance().drawPhase(isDrawPhaseEnd);
     }
-    
+    public void setDrawPhaseEndFlag(boolean flag){
+        isDrawPhaseEnd = flag;
+    }
+    public boolean getDrawPhaseEndFlag(){
+        return isDrawPhaseEnd;
+    }
     public void endStage(){
         this.cur_player = (this.cur_player+1)%2;
         publish(new PlayerChangedEvent(this.cur_player) );
