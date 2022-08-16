@@ -9,6 +9,7 @@ import com.aetherwars.GUI.Selectable;
 import com.aetherwars.Game;
 import com.aetherwars.card.Card;
 import com.aetherwars.card.Character.Type;
+import com.aetherwars.card.Deck;
 import com.aetherwars.card.SummonedCharacter;
 import com.aetherwars.controller.BoardController;
 import com.aetherwars.card.Character.Character;
@@ -22,8 +23,10 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static com.aetherwars.util.Utility.getFractionSize;
+import static java.lang.Math.abs;
 
 /**
  *
@@ -151,8 +154,13 @@ public class Frame extends javax.swing.JFrame {
         for(int i=0;i<drawableCards.length;i++) {
             if(drawableCards[i].getCard()!=null) {
                 System.out.println("hpere");
-                game.getDeck(game.getCurPlayer()).addCard(drawableCards[i].getCard());
-                System.out.println(game.getDeck(game.getCurPlayer()).getSize());
+                //acak posisi masuk kartu
+                Random random = new Random();
+                Deck deck = game.getDeck(game.getCurPlayer());
+                int idx = abs(random.nextInt(deck.getSize()));
+                System.out.println(idx);
+                deck.insertCardAdd(drawableCards[i].getCard(),idx);
+                System.out.println(deck.getSize());
             }
         }
     }

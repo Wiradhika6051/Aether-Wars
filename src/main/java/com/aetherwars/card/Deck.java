@@ -16,6 +16,10 @@ public class Deck {
     public void addCard(Card card) {
         cards.add(card);
     }
+    public void insertCardAdd(Card card,int idx){
+        cards.add(idx,card);
+    }
+
 
     public void removeCard(Card card) {
         int idx = cards.indexOf(card);
