@@ -57,6 +57,7 @@ public class Game implements Publisher, Subscriber{
         System.out.println(phase_id+"aaaa");
         return phases[phase_id];
     }
+
     public static Game getGameManager(){
         return INSTANCE;
     }

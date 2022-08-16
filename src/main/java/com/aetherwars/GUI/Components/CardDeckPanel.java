@@ -46,5 +46,8 @@ public class CardDeckPanel extends JPanel {
         this.currentCard = card;
         this.cardLeftLabel.setText(this.currentCard+"/"+this.maxCard);
     }
+    public int getCard(){
+        return this.currentCard;
+    }
 
 }

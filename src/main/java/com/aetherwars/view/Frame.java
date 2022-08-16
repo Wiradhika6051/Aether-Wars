@@ -42,12 +42,14 @@ public class Frame extends javax.swing.JFrame {
 
    // int turn;
     int CURCARD=20;
+    boolean isMasked;//apakah jumlah kartu di deck sudah disamarkan pas draw phase(smeestinya -3 tapis eolah olah gak berkurang)
 
     /**
      * Creates new form Frame
      */
     private boolean isDebugMode;//jika true, maka fitur debug aktif
     public Frame(boolean isDebugMode,Game game) {
+        isMasked = false;
         this.game = game;
         setTitle("Aether Wars");
     //    turn = 1;
@@ -93,7 +95,6 @@ public class Frame extends javax.swing.JFrame {
             }
         }
         else {
-            renderComponents(getDebugMode());
             for (Component c : this.getContentPane().getComponents()) {
                 if (Selectable.class.isInstance(c)) {
                     Selectable comp = (Selectable) c;
@@ -102,6 +103,7 @@ public class Frame extends javax.swing.JFrame {
             }
         }
         System.out.println("ejhfreifr");
+        renderComponents(getDebugMode());
         revalidate();
         repaint();
     }
@@ -144,6 +146,15 @@ public class Frame extends javax.swing.JFrame {
     }
     public static Frame getInstance(){
         return Instance;
+    }
+    public void afterDraw(){
+        for(int i=0;i<drawableCards.length;i++) {
+            if(drawableCards[i].getCard()!=null) {
+                System.out.println("hpere");
+                game.getDeck(game.getCurPlayer()).addCard(drawableCards[i].getCard());
+                System.out.println(game.getDeck(game.getCurPlayer()).getSize());
+            }
+        }
     }
     public void setDebugMode(boolean debugMode){
         this.isDebugMode= debugMode;
@@ -566,6 +577,17 @@ public class Frame extends javax.swing.JFrame {
             this.add(grid);
         }
         if(Phase.DRAW==game.getCurPhase()){
+            if(!game.getDrawPhaseEndFlag()&&!isMasked) {
+                cardDeckPanel.updateDeck(cardDeckPanel.getCard() + 3);
+                isMasked = true;
+            }
+            else if(game.getDrawPhaseEndFlag()){
+                System.out.println("ehe"+game.getDeck(game.getCurPlayer()).getSize());
+                cardDeckPanel.updateDeck(game.getDeck(game.getCurPlayer()).getSize());
+            }
+            else if(isMasked){
+                cardDeckPanel.updateDeck(cardDeckPanel.getCard());
+            }
             renderDrawScreen(game.getDrawPhaseEndFlag());
         }
         add(showManaLabel);

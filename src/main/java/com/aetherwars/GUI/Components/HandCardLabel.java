@@ -178,7 +178,10 @@ public class HandCardLabel extends JPanel implements Selectable {
                         addToDeck();
                         isSelected = false;
                         Game.getGameManager().setDrawPhaseEndFlag(true);
+                        card=null;
+                        Frame.getInstance().afterDraw();
                         com.aetherwars.view.Frame.getInstance().drawPhase(true);
+                        System.out.println("dfefe"+Game.getGameManager().getDeck(Game.getGameManager().getCurPlayer()).getSize());
                         Frame.getInstance().renderComponents(Frame.getInstance().getDebugMode());
                     }
                 }
@@ -188,5 +191,8 @@ public class HandCardLabel extends JPanel implements Selectable {
                 Frame.getInstance().repaint();
             }
         });
+    }
+    public Card getCard(){
+        return card;
     }
 }
