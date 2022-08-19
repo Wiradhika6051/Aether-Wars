@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import com.aetherwars.GUI.Selectable;
+import com.aetherwars.Game;
 import com.aetherwars.model.Phase;
 import com.aetherwars.view.Frame;
 
@@ -43,6 +44,7 @@ public class NextButton extends JButton implements Selectable {
                     curState = Phase.PLAN;
                     instance.getStateGUI("DRAW").setSelected(false);
                     instance.getStateGUI("PLAN").setSelected(true);
+                    Game.getGameManager().stageController(curState);
                 }
                 else if(curState==Phase.PLAN){
                     curState = Phase.ATTACK;

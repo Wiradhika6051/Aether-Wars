@@ -18,6 +18,8 @@ public class Game implements Publisher, Subscriber{
     private final float POTION_PERCENTAGE = 0.35f;
     private final float SWAP_PERCENTAGE = 0.15f;
 
+    private final int INITIAL_CARD = 5;
+
 
     private Player players[];
     private int turns;
@@ -106,8 +108,6 @@ public class Game implements Publisher, Subscriber{
             totalCount++;
         }
         //kalo kelebihan gak ketambah otomatis
-        System.out.println("asuuu");
-      //  System.out.println(deck.drawCard());
         deck.shuffle();
     }
     public int getTurn(){
@@ -119,7 +119,7 @@ public class Game implements Publisher, Subscriber{
     
     public void setup(){
         for(int i=0; i<2; i++) {
-        	for(int j=0; j<3; j++) {
+        	for(int j=0; j<INITIAL_CARD; j++) {
           //      System.out.println("aaa "+i);
         		this.players[i].addCard(this.deck[i].drawCard());
         	} // di sini harusnya draw 3 kartu dulu
@@ -149,7 +149,10 @@ public class Game implements Publisher, Subscriber{
         if(phase == Phase.DRAW){
             System.out.println("asuscheofre");
             drawPhase();
-        }else if (phase == Phase.END){
+        }else if(phase==Phase.PLAN){
+            System.out.println("anying");
+        }
+        else if (phase == Phase.END){
             // end phase
         }
     }

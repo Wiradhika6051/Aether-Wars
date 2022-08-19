@@ -7,8 +7,8 @@ import java.awt.*;
 
 import static com.aetherwars.util.Utility.getFractionSize;
 
-public class DrawPhaseScreen extends JPanel {
-    public DrawPhaseScreen(){
+public class ShadowyScreen extends JPanel {
+    public ShadowyScreen(){
         setLayout(null);
         setBackground(new Color(0,0,0,120));
     }

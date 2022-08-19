@@ -20,7 +20,7 @@ import java.net.URLEncoder;
 
 import static com.aetherwars.util.Utility.getFractionSize;
 
-public class HandCardLabel extends JPanel implements Selectable {
+public class HandCardLabel extends JPanel implements Selectable{
     private JLabel CardImage;
     private JLabel manaCostLabel;
     private JLabel statLabel;
@@ -197,4 +197,5 @@ public class HandCardLabel extends JPanel implements Selectable {
     public Card getCard(){
         return card;
     }
+
 }

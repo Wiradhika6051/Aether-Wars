@@ -39,12 +39,13 @@ public class Frame extends javax.swing.JFrame {
     public static Frame Instance;
     HandCardLabel[] deck;
     PlayerPicture[] players;
-    DrawPhaseScreen drawPhaseScreen;
+    ShadowyScreen drawPhaseScreen;
     HandCardLabel[] drawableCards;
     Game game;
 
-   // int turn;
-    int CURCARD=20;
+    static final String REMOVE_CARD_PROMPT_MESSAGE = "Apakah Anda yakin membuang kartu ini?";
+    static final String HANDCARD_FULL_MESSAGE = "<html><p>Kartu Di Tangan Sudah Penuh!</p><p>Buang Salah Satu dengan Klik Kanan pada Kartu!</p></html>";
+
     boolean isMasked;//apakah jumlah kartu di deck sudah disamarkan pas draw phase(smeestinya -3 tapis eolah olah gak berkurang)
 
     /**
@@ -52,6 +53,10 @@ public class Frame extends javax.swing.JFrame {
      */
     private boolean isDebugMode;//jika true, maka fitur debug aktif
     public Frame(boolean isDebugMode,Game game) {
+      //  RemovePrompt rp = new RemovePrompt();
+      //  add(rp);
+      //  rp.setBounds(0,0,1000,1000);
+        Frame.Instance = this;
         isMasked = false;
         this.game = game;
         setTitle("Aether Wars");
@@ -61,7 +66,6 @@ public class Frame extends javax.swing.JFrame {
         this.isDebugMode = isDebugMode;
         System.out.println(isDebugMode);
         this.setSize(new Dimension((int)(this.screenWidth),(int)(this.screenHeight)));
-        Frame.Instance = this;
         players = new PlayerPicture[2];
         this.setLayout(null);
         init();
@@ -69,7 +73,33 @@ public class Frame extends javax.swing.JFrame {
         initKeyListener();
         initDeck();
         initdrawPhaseScreen();
+        initRemovePrompt();
         setVisible(true);
+    }
+    void initRemovePrompt(){
+        rp.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),0,60),
+                getFractionSize(GlobalVar.getScreenHeight(),0,40),
+                getFractionSize(GlobalVar.getScreenWidth(),60,60),
+                getFractionSize(GlobalVar.getScreenHeight(),40,40)
+        );
+        maxCardWarning.setBounds(
+                getFractionSize(GlobalVar.getScreenWidth(),22,60),
+                getFractionSize(GlobalVar.getScreenHeight(),7,40),
+                getFractionSize(GlobalVar.getScreenWidth(),19,60),
+                getFractionSize(GlobalVar.getScreenHeight(),3,40)
+        );
+        maxCardWarning.setFont(new Font("Default",Font.BOLD,24));
+        maxCardWarning.setForeground(Color.red);
+    }
+    void showMaxCardWarning(){
+        add(maxCardWarning);
+        for (Component c : this.getContentPane().getComponents()) {
+            if (HandCardLabel.class.isInstance(c)) {
+                Selectable comp = (Selectable) c;
+                comp.setSelectability(true);
+            }
+        }
     }
     public void renderDrawScreen(boolean isEnd){
         if(isEnd){
@@ -77,6 +107,12 @@ public class Frame extends javax.swing.JFrame {
                 remove(drawableCards[i]);
             }
             remove(drawPhaseScreen);
+        }
+        else if(game.getPlayer(game.getCurPlayer()).getHandCardSize()==5){
+            //hapus salah satu kartu
+            //removeCardScreen();
+            //add(rp);
+            showMaxCardWarning();
         }
         else{
             for (int i = 0; i < drawableCards.length; i++) {
@@ -90,8 +126,16 @@ public class Frame extends javax.swing.JFrame {
         System.out.println("eheee123e3");
         renderDrawScreen(isEnd);
         if(isEnd){
+            /*
             for (Component c : this.getContentPane().getComponents()) {
                 if (Selectable.class.isInstance(c)) {
+                    Selectable comp = (Selectable) c;
+                    comp.setSelectability(true);
+                }
+            }
+            */
+            for (Component c : this.getContentPane().getComponents()) {
+                if (NextButton.class.isInstance(c)) {
                     Selectable comp = (Selectable) c;
                     comp.setSelectability(true);
                 }
@@ -111,7 +155,7 @@ public class Frame extends javax.swing.JFrame {
         repaint();
     }
     void initdrawPhaseScreen(){
-        drawPhaseScreen = new DrawPhaseScreen();
+        drawPhaseScreen = new ShadowyScreen();
         drawPhaseScreen.setBounds(
                 getFractionSize(GlobalVar.getScreenWidth(),0,60),
                 getFractionSize(GlobalVar.getScreenHeight(),0,40),
@@ -241,6 +285,8 @@ public class Frame extends javax.swing.JFrame {
   //  @SuppressWarnings("unchecked")
    // // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void init() {
+        rp = new RemovePrompt(REMOVE_CARD_PROMPT_MESSAGE);
+        maxCardWarning = new JLabel(HANDCARD_FULL_MESSAGE);
         pnl_turns = new TurnInfo();
         player1Picture = new PlayerPicture("/com/aetherwars/card/image/Player/Steve.png");
         deck_A_player1 = new PlayerDeckCard("A");
@@ -576,12 +622,18 @@ public class Frame extends javax.swing.JFrame {
     public void reset(boolean debug){
         //isi kartu
         Card[] handCard = game.getPlayer(game.getCurPlayer()).getHandCard();
-        for(int i =0;i<handCard.length;i++){
-            deck[i].setCharacter(handCard[i]);
+        for(int i =0;i<deck.length;i++){
+            if(i<handCard.length) {
+                deck[i].setCharacter(handCard[i]);
+            }
+            else{
+                deck[i].removeCard();
+            }
         }
     }
     public void clickHandDeck(int idx){
         deck[idx].setEnabled(true);
+        deck[idx].setSelectability(false);
     }
     public void renderComponents(boolean debugMode){
         if(debugMode){
@@ -704,6 +756,8 @@ public class Frame extends javax.swing.JFrame {
     private JLabel player2Name;
     private NextButton nextPhaseButton;
     private GridHelper grid;
+    RemovePrompt rp;
+    JLabel maxCardWarning;
    // private CardLabel card;
     // End of variables declaration//GEN-END:variables
 }
